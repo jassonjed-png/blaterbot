@@ -49,7 +49,7 @@
             
             <div class="card-glass p-4 rounded-3xl border-2 border-slate-700 mx-auto max-w-sm hover:border-amber-500 transition duration-500 transform hover:scale-105 shadow-[0_0_40px_-10px_rgba(245,158,11,0.3)] relative group">
                 <div class="absolute -top-4 -right-4 bg-amber-500 text-black font-black px-4 py-2 rounded-xl shadow-lg z-20 transform rotate-3 group-hover:rotate-6 transition">
-                    v2.1 ONLINE
+                    v1.5 ONLINE
                 </div>
                 <img src="Captura.PNG" alt="Interfaz de Blaster Bot PRO" class="w-full h-auto rounded-2xl relative z-10 shadow-2xl">
             </div>
@@ -67,7 +67,7 @@
                     ⚠️ <strong>Nota:</strong> El acceso completo y el envío de mensajes requieren una licencia activa vinculada a tu HWID.
                 </span>
             </p>
-            <a href="BlasterBotPro.zip" download class="inline-block gold-gradient text-black text-xl font-bold py-4 px-10 rounded-full hover:scale-105 transition shadow-[0_0_20px_rgba(245,158,11,0.5)]">
+            <a href="https://drive.google.com/file/d/1TXG9WNioNf4SOtWR8wzMxrmrUygUpLo7/view?usp=sharing" target="_blank" class="inline-block gold-gradient...">
                 <i class="fa-brands fa-windows text-2xl align-middle mr-2"></i> Descargar para Windows
             </a>
         </div>
@@ -108,56 +108,81 @@
     <section id="comprar" class="py-20 px-6 relative z-10">
         <div class="max-w-7xl mx-auto text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text gold-gradient">Planes Profesionales</h2>
-            <p class="text-gray-400">Selecciona tu plan ideal para activar el pago en USDT.</p>
+            <p class="text-gray-400">Selecciona tu plan ideal. Pagos rápidos, seguros y sin comisiones extras.</p>
         </div>
 
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-20">
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', '1 Mes')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '19.99', '1 Mes')">
                 <h3 class="font-bold mb-2">Mensual</h3>
                 <div class="text-3xl font-black mb-4">$19.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', '3 Meses')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '34.99', '3 Meses')">
                 <h3 class="font-bold mb-2">Trimestral</h3>
                 <div class="text-3xl font-black mb-4">$34.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '54.99', '6 Meses')">
-                <h3 class="font-bold mb-2 text-amber-500">Semestral</h3>
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all transform md:-translate-y-4 border-amber-500/30 border-2" onclick="selectPlan(this, '54.99', '6 Meses')">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amber-500 text-black text-xs font-black px-3 py-1 rounded-full">MÁS POPULAR</div>
+                <h3 class="font-bold mb-2 text-amber-500 mt-2">Semestral</h3>
                 <div class="text-3xl font-black mb-4">$54.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '89.99', '1 Año')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '89.99', '1 Año')">
                 <h3 class="font-bold mb-2">Anual</h3>
                 <div class="text-3xl font-black mb-4">$89.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '149.99', 'Vitalicio')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '149.99', 'Vitalicio')">
                 <h3 class="font-bold mb-2 text-amber-500"><i class="fa-solid fa-crown"></i> Vitalicia</h3>
                 <div class="text-3xl font-black mb-4">$149.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
             </div>
         </div>
 
-        <div id="checkout" class="max-w-4xl mx-auto p-10 card-glass rounded-3xl border-2 border-slate-700 text-center">
+        <div id="checkout" class="max-w-4xl mx-auto p-8 card-glass rounded-3xl border-2 border-slate-700 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-32 bg-amber-500/10 blur-[50px] -z-10"></div>
+            
             <div id="empty-state">
-                <p class="text-slate-400 italic">Elige un plan arriba para habilitar la pasarela de pago</p>
+                <i class="fa-solid fa-hand-pointer text-4xl text-slate-500 mb-4 animate-bounce"></i>
+                <p class="text-slate-400 font-bold text-lg">Elige un plan arriba para ver las instrucciones de pago</p>
             </div>
+
             <div id="payment-details" class="hidden">
-                <h4 class="text-xl font-bold mb-2">Seleccionado: <span id="selected-plan-name" class="text-amber-500">---</span></h4>
-                <div class="text-5xl font-black mb-8" id="display-price">$0.00 <span class="text-lg text-gray-500">USDT</span></div>
+                <h4 class="text-xl font-bold mb-2">Has seleccionado el plan: <span id="selected-plan-name" class="text-amber-500 text-2xl uppercase">---</span></h4>
+                <div class="text-5xl font-black mb-6" id="display-price">$0.00 <span class="text-lg text-gray-500">USDT</span></div>
                 
-                <div class="flex flex-col md:flex-row justify-center gap-4 mb-6">
-                    <a id="binance-link" href="#" target="_blank" class="w-full md:w-auto px-8 bg-[#f3ba2f] text-black py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:brightness-110 transition transform hover:scale-105 shadow-[0_0_20px_rgba(243,186,47,0.4)] text-lg">
-                        <i class="fa-solid fa-coins text-3xl"></i> Binance Pay
-                    </a>
+                <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-700 mb-6 text-left max-w-2xl mx-auto">
+                    <h5 class="font-bold text-amber-500 mb-4 border-b border-slate-700 pb-2"><i class="fa-solid fa-wallet mr-2"></i> Instrucciones de Pago</h5>
                     
-                    <a href="https://t.me/spbot247" target="_blank" class="w-full md:w-auto px-8 bg-slate-800 border border-slate-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-700 transition transform hover:scale-105 text-lg">
-                        <i class="fa-brands fa-telegram text-3xl"></i> Otros métodos
-                    </a>
+                    <div class="mb-6 flex flex-col md:flex-row gap-6 items-center bg-black/40 p-5 rounded-xl border border-slate-800">
+                        <div class="w-48 h-48 flex-shrink-0 bg-[#0b0e11] rounded-xl p-2 border border-slate-700 shadow-[0_0_15px_rgba(243,186,47,0.15)] overflow-hidden flex items-center justify-center">
+                            <img src="image.png" alt="Binance Pay QR Code" class="max-w-full max-h-full object-contain rounded-lg">
+                        </div>
+                        <div class="flex-1 w-full text-center md:text-left">
+                            <p class="text-sm text-gray-300 font-bold mb-1"><i class="fa-solid fa-qrcode text-amber-500"></i> Opción 1: Binance Pay</p>
+                            <p class="text-xs text-gray-500 mb-3">Escanea el QR o envía al siguiente Pay ID (Usuario: JassonJD)</p>
+                            <div class="flex items-center gap-2">
+                                <code class="bg-black px-4 py-3 rounded-lg text-amber-400 font-mono text-xl flex-1 text-center md:text-left shadow-inner border border-slate-800">131264331</code>
+                                <button onclick="copyToClipboard('131264331')" class="bg-slate-700 p-3 rounded-lg hover:bg-slate-600 hover:text-amber-400 transition" title="Copiar ID"><i class="fa-solid fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-2 bg-black/40 p-5 rounded-xl border border-slate-800">
+                        <p class="text-sm text-gray-300 font-bold mb-1"><i class="fa-brands fa-bitcoin text-amber-500"></i> Opción 2: Billetera Crypto</p>
+                        <p class="text-xs text-gray-500 mb-3">Envía USDT exactamente por la red <span class="font-bold text-white">Tron (TRC20)</span></p>
+                        <div class="flex items-center gap-2">
+                            <code class="bg-black px-4 py-3 rounded-lg text-green-400 font-mono text-xs sm:text-sm overflow-x-auto flex-1 whitespace-nowrap shadow-inner border border-slate-800">TTcz6MWc6dsDyoKTsDksgEowqUePr9UJg6</code>
+                            <button onclick="copyToClipboard('TTcz6MWc6dsDyoKTsDksgEowqUePr9UJg6')" class="bg-slate-700 p-3 rounded-lg hover:bg-slate-600 hover:text-green-400 transition" title="Copiar Billetera"><i class="fa-solid fa-copy"></i></button>
+                        </div>
+                    </div>
                 </div>
                 
-                <p class="text-sm text-gray-400 italic">Al finalizar el pago, contáctanos en <a href="https://t.me/spbot247" target="_blank" class="text-amber-500 hover:underline">Soporte Técnico</a> para recibir tu HWID Key.</p>
+                <p class="text-lg text-gray-300 font-bold mb-4">¿Ya realizaste la transferencia?</p>
+                <a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-10 bg-[#229ED9] text-white py-4 rounded-2xl font-black text-xl hover:brightness-110 transition transform hover:scale-105 shadow-[0_0_20px_rgba(34,158,217,0.4)] w-full sm:w-auto">
+                    <i class="fa-brands fa-telegram text-2xl align-middle mr-2"></i> Enviar Comprobante
+                </a>
             </div>
         </div>
     </section>
@@ -193,36 +218,44 @@
     </footer>
 
     <script>
-        // Configura aquí tus enlaces reales de Binance
-        const binanceLinks = {
-            '1 Mes': 'https://s.binance.com/JD4zcDM1',
-            '3 Meses': 'https://s.binance.com/zLkrRDFC', 
-            '6 Meses': 'https://s.binance.com/ga5AHZDl', 
-            '1 Año': 'https://s.binance.com/sTW3oVmH',   
-            'Vitalicio': 'https://s.binance.com/muPZlZnn'
-        };
-
+        // Función para seleccionar plan y generar el enlace dinámico de Telegram
         function selectPlan(element, price, name) {
+            // Resetear estilos
             document.querySelectorAll('.plan-card').forEach(card => {
                 card.classList.remove('card-selected');
                 card.querySelector('div:last-child').innerText = "Seleccionar";
                 card.querySelector('div:last-child').classList.replace('gold-gradient', 'bg-slate-800');
+                card.querySelector('div:last-child').classList.remove('text-black');
             });
             
+            // Aplicar estilo al seleccionado
             element.classList.add('card-selected');
             element.querySelector('div:last-child').innerText = "Seleccionado";
             element.querySelector('div:last-child').classList.replace('bg-slate-800', 'gold-gradient');
+            element.querySelector('div:last-child').classList.add('text-black');
             
+            // Mostrar panel de pago
             document.getElementById('empty-state').classList.add('hidden');
             document.getElementById('payment-details').classList.remove('hidden');
             document.getElementById('selected-plan-name').innerText = name;
             document.getElementById('display-price').innerHTML = "$" + price + " <span class='text-lg text-gray-500'>USDT</span>";
             
-            document.getElementById('binance-link').href = binanceLinks[name];
+            // Generar mensaje automático para Telegram
+            const mensajeTelegram = `¡Hola Dron! Acabo de pagar $${price} USDT por el plan *${name}* de Blaster Bot PRO. Aquí te envío mi comprobante para recibir mi licencia HWID:`;
+            const encodedMessage = encodeURIComponent(mensajeTelegram);
+            document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodedMessage}`;
             
             document.getElementById('checkout').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
+        // Función para copiar al portapapeles
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("¡Copiado al portapapeles!");
+            });
+        }
+
+        // Animación Matrix
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
