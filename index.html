@@ -1,261 +1,281 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blaster Bot PRO - Automatización Inteligente</title>
+    <title>Blaster Bot PRO - International Smart Automation</title>
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap');
         body { background-color: #000000; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .gold-gradient { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
         .card-glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(245, 158, 11, 0.2); transition: all 0.3s ease; }
         .card-selected { border: 2px solid #f59e0b !important; transform: scale(1.05); box-shadow: 0 0 25px rgba(245, 158, 11, 0.4); background: rgba(30, 41, 59, 0.8); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .method-btn { transition: all 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .method-active { border-color: #f59e0b; background: rgba(245, 158, 11, 0.1) !important; box-shadow: 0 0 15px rgba(245,158,11,0.2); }
     </style>
 </head>
 <body class="relative">
 
     <canvas id="matrix-bg" class="fixed top-0 left-0 w-full h-full -z-10 opacity-30"></canvas>
 
+    <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-full border border-amber-500/50">
+            <span class="text-2xl font-black tracking-tighter italic text-white uppercase">Blaster <span class="text-yellow-500">Bot</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 font-semibold text-sm">
+            <a href="#demo" class="hover:text-yellow-500 transition uppercase tracking-widest text-[10px]">Features</a>
+            <a href="#verificador" class="hover:text-yellow-500 transition uppercase tracking-widest text-[10px]">Validator</a>
+            <a href="#comprar" class="hover:text-yellow-500 transition uppercase tracking-widest text-[10px]">Pricing</a>
+            <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="hover:text-yellow-500 transition uppercase tracking-widest text-[10px]">Channel</a>
+        </div>
+        <a href="https://t.me/spbot247" target="_blank" class="gold-gradient text-black px-6 py-2 rounded-full font-bold text-xs hover:scale-105 transition uppercase italic">Support</a>
+    </nav>
+
     <header class="py-16 px-6 text-center relative z-10">
         <div class="max-w-5xl mx-auto mt-10">
-            <img src="logo.png" alt="Blaster Bot PRO Logo" class="w-32 h-32 mx-auto mb-6 drop-shadow-[0_0_20px_rgba(245,158,11,0.6)] rounded-full border-2 border-amber-500/50 hover:scale-105 transition duration-300">
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">
-                <span class="text-transparent bg-clip-text gold-gradient">BLASTER BOT PRO</span> 🤖
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter uppercase italic">
+                <span class="text-transparent bg-clip-text gold-gradient">Blaster Bot PRO</span> 🤖
             </h1>
-            <p class="text-xl text-gray-300 mb-8">Domina Telegram con la herramienta más potente de automatización. Elige tu plan, descarga la app y empieza a vender.</p>
-            
+            <p class="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">International Marketing Automation. Scale your business globally with our Anti-Ban technology.</p>
             <div class="flex justify-center gap-4 flex-wrap">
-                <a href="#comprar" class="gold-gradient text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition shadow-lg"><i class="fa-solid fa-cart-shopping mr-2"></i> Ver Planes</a>
-                
-                <a href="#descargar" class="bg-slate-800 border border-slate-700 py-3 px-8 rounded-full hover:bg-slate-700 transition"><i class="fa-solid fa-download mr-2"></i> Descargar App</a>
-                
-                <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="bg-[#229ED9] text-white py-3 px-8 rounded-full hover:brightness-110 transition flex items-center gap-2 shadow-md"><i class="fa-brands fa-telegram text-xl"></i> Canal Oficial</a>
-
-                <a href="https://t.me/spbot247" target="_blank" class="bg-amber-600 text-white py-3 px-8 rounded-full hover:bg-amber-500 transition flex items-center gap-2 shadow-[0_0_15px_rgba(217,119,6,0.4)]"><i class="fa-solid fa-key text-xl"></i> Obtén tu licencia</a>
+                <a href="#comprar" class="gold-gradient text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition shadow-lg uppercase text-xs italic">View Plans</a>
+                <a href="#descargar" class="bg-slate-800 border border-slate-700 py-3 px-8 rounded-full hover:bg-slate-700 transition uppercase text-xs italic text-white">Download App</a>
+                <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="bg-[#229ED9] text-white py-3 px-8 rounded-full hover:brightness-110 transition uppercase text-xs italic flex items-center gap-2 shadow-lg"><i class="fa-brands fa-telegram text-lg"></i> Official Channel</a>
             </div>
         </div>
     </header>
 
-    <section id="demo" class="py-16 px-6 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-10">
-                <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text gold-gradient">Software 100% Real y Funcional</h2>
-                <p class="text-gray-400 text-lg">Interfaz moderna, ligera y diseñada para trabajar en segundo plano sin consumir los recursos de tu PC.</p>
-            </div>
+    <section id="verificador" class="py-12 px-6 relative z-10">
+        <div class="max-w-4xl mx-auto card-glass p-10 rounded-3xl border-2 border-amber-500/30 text-center shadow-2xl">
+            <h2 class="text-3xl font-black mb-6 text-white uppercase italic tracking-tighter">License <span class="text-amber-500">Validator</span></h2>
             
-            <div class="card-glass p-4 rounded-3xl border-2 border-slate-700 mx-auto max-w-sm hover:border-amber-500 transition duration-500 transform hover:scale-105 shadow-[0_0_40px_-10px_rgba(245,158,11,0.3)] relative group">
-                <div class="absolute -top-4 -right-4 bg-amber-500 text-black font-black px-4 py-2 rounded-xl shadow-lg z-20 transform rotate-3 group-hover:rotate-6 transition">
-                    v1.5 ONLINE
+            <div class="flex flex-col gap-4 items-center bg-black/40 p-6 rounded-2xl border border-slate-800">
+                <div class="flex flex-col md:flex-row w-full gap-4">
+                    <input type="text" id="web-key-input" placeholder="Paste your activation key here..." class="bg-transparent text-white p-4 rounded-xl w-full md:flex-1 focus:outline-none focus:border-amber-500 border border-transparent text-center md:text-left font-mono transition">
+                    <button id="verify-btn" onclick="checkLicenseWeb()" class="bg-slate-700 text-gray-400 font-black py-4 px-10 rounded-xl transition-all uppercase text-xs italic cursor-not-allowed" disabled>Verify Status</button>
                 </div>
-                <img src="Captura.PNG" alt="Interfaz de Blaster Bot PRO" class="w-full h-auto rounded-2xl relative z-10 shadow-2xl">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADD5urBmaR_v4TrL" data-theme="dark" data-callback="enableVerifyBtn"></div>
+            </div>
+
+            <div id="license-result" class="mt-10 hidden animate-fade-in text-center">
+                <div id="result-box" class="p-8 rounded-2xl border-2 bg-black/30 inline-block min-w-[320px]">
+                    <div id="result-icon" class="text-5xl mb-4"></div>
+                    <p id="result-status" class="text-2xl font-black mb-2 uppercase italic"></p>
+                    <p id="result-exp" class="text-gray-300 font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-16 px-6 relative z-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-10 text-transparent bg-clip-text gold-gradient uppercase italic">Next-Gen Interface</h2>
+            <div class="card-glass p-4 rounded-3xl border-2 border-slate-700 mx-auto max-w-md relative">
+                <div class="absolute -top-4 -right-4 bg-amber-500 text-black font-black px-4 py-2 rounded-xl shadow-lg z-20 text-[10px]">v2.1 LIVE</div>
+                <img src="Captura.PNG" alt="Interface" class="w-full h-auto rounded-2xl shadow-2xl">
             </div>
         </div>
     </section>
 
     <section id="descargar" class="py-12 px-6 relative z-10">
-        <div class="max-w-4xl mx-auto card-glass p-10 rounded-3xl text-center border-t-4 border-amber-500 shadow-xl">
-            <i class="fa-solid fa-cloud-arrow-down text-5xl text-amber-500 mb-6 drop-shadow-md"></i>
-            <h2 class="text-3xl font-bold mb-4">Descarga la Versión Oficial</h2>
-            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
-                Verifica la autenticidad del software descargándolo ahora mismo. 
-                <br><br>
-                <span class="text-sm text-gray-400 italic bg-slate-900/50 p-3 rounded-lg border border-slate-700 block">
-                    ⚠️ <strong>Nota:</strong> El acceso completo y el envío de mensajes requieren una licencia activa vinculada a tu HWID.
-                </span>
-            </p>
-            <a href="https://drive.google.com/file/d/1h_pHsRDAdV4n8V12fosDxRRocoxf275K/view?usp=sharing" target="_blank" class="inline-block gold-gradient...">
-                <i class="fa-brands fa-windows text-2xl align-middle mr-2"></i> Descargar para Windows
-            </a>
+        <div class="max-w-4xl mx-auto card-glass p-10 rounded-3xl text-center border-t-4 border-slate-700 shadow-xl transition-colors duration-500" id="download-container">
+            
+            <div id="download-locked">
+                <i class="fa-solid fa-lock text-5xl text-slate-500 mb-6 drop-shadow-md"></i>
+                <h2 class="text-3xl font-bold mb-4 uppercase italic text-slate-400">Software Download</h2>
+                <p class="text-slate-500 mb-8 max-w-2xl mx-auto text-xs italic uppercase tracking-widest">A valid license is required to access the official servers.</p>
+                <div class="inline-block bg-slate-800 text-slate-600 font-black py-4 px-10 rounded-xl uppercase text-xs italic cursor-not-allowed">
+                    <i class="fa-solid fa-ban text-xl align-middle mr-2"></i> Locked
+                </div>
+            </div>
+
+            <div id="download-unlocked" class="hidden animate-fade-in">
+                <i class="fa-solid fa-cloud-arrow-down text-5xl text-green-500 mb-6 drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]"></i>
+                <h2 class="text-3xl font-bold mb-4 uppercase italic text-white">Download Authorized</h2>
+                <p class="text-green-400 mb-8 max-w-2xl mx-auto text-xs italic uppercase tracking-widest">Your connection is secure. You may download the software now.</p>
+                <a href="#" id="secure-download-link" target="_blank" class="inline-block bg-green-500 hover:bg-green-400 text-black font-black py-4 px-10 rounded-xl hover:scale-105 transition shadow-[0_0_20px_rgba(34,197,94,0.4)] uppercase text-xs italic">
+                    <i class="fa-brands fa-windows text-xl align-middle mr-2"></i> Download for Windows
+                </a>
+            </div>
+
         </div>
     </section>
 
-    <section class="py-16 px-6 relative z-10">
+    <section id="comprar" class="py-20 px-6 relative z-10 text-center">
+        <h2 class="text-4xl font-bold mb-16 text-transparent bg-clip-text gold-gradient uppercase italic">Professional Plans</h2>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-20">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', 'Monthly')">
+                <h3 class="font-bold mb-2">Monthly</h3>
+                <div class="text-3xl font-black mb-4 text-white">$19.99</div>
+                <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
+            </div>
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', 'Quarterly')">
+                <h3 class="font-bold mb-2">Quarterly</h3>
+                <div class="text-3xl font-black mb-4 text-white">$34.99</div>
+                <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
+            </div>
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between border-amber-500/40 border-2" onclick="selectPlan(this, '54.99', 'Semi-Annual')">
+                <div class="bg-amber-500 text-black text-[9px] font-black px-2 py-0.5 rounded absolute -top-2 left-4">POPULAR</div>
+                <h3 class="font-bold mb-2 text-amber-500">Semi-Annual</h3>
+                <div class="text-3xl font-black mb-4 text-white">$54.99</div>
+                <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
+            </div>
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '89.99', 'Annual')">
+                <h3 class="font-bold mb-2">Annual</h3>
+                <div class="text-3xl font-black mb-4 text-white">$89.99</div>
+                <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
+            </div>
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '149.99', 'Lifetime')">
+                <h3 class="font-bold mb-2 text-amber-500 italic"><i class="fa-solid fa-crown mr-1"></i> Lifetime</h3>
+                <div class="text-3xl font-black mb-4 text-white">$149.99</div>
+                <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
+            </div>
+        </div>
+
+        <div id="checkout" class="max-w-5xl mx-auto p-10 card-glass rounded-3xl border-2 border-slate-800 shadow-2xl relative min-h-[200px]">
+            <div id="empty-state" class="text-center py-10">
+                <p class="text-slate-600 font-black uppercase tracking-[0.3em] italic text-xs">Choose a plan to reveal payment methods</p>
+            </div>
+            
+            <div id="payment-selection" class="hidden animate-fade-in">
+                <div class="text-center mb-10">
+                    <h4 class="text-xl font-bold italic uppercase">Plan Selected: <span id="selected-plan-name" class="text-amber-500">---</span></h4>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 justify-center mb-10">
+                    <button id="btn-binance" onclick="toggleMethod('binance')" class="method-btn bg-black/40 px-8 py-5 rounded-2xl flex-1 flex items-center justify-center gap-3 font-black uppercase italic tracking-tighter hover:bg-black/60 transition">
+                        <i class="fa-solid fa-qrcode text-amber-500 text-xl"></i> Binance Pay
+                    </button>
+                    <button id="btn-global" onclick="toggleMethod('global')" class="method-btn bg-black/40 px-8 py-5 rounded-2xl flex-1 flex items-center justify-center gap-3 font-black uppercase italic tracking-tighter hover:bg-black/60 transition">
+                        <i class="fa-solid fa-credit-card text-blue-500 text-xl"></i> Card / Global Crypto
+                    </button>
+                </div>
+
+                <div id="block-binance" class="hidden animate-fade-in bg-black/30 p-8 rounded-3xl border border-amber-500/20 mb-10">
+                    <div class="flex flex-col md:flex-row gap-10 items-center justify-center">
+                        <div class="w-44 h-44 bg-white rounded-2xl p-2 border-4 border-amber-500/30">
+                            <img src="image.png" alt="Binance QR" class="w-full h-full object-contain">
+                        </div>
+                        <div class="text-center md:text-left">
+                            <p class="text-amber-500 font-black text-sm uppercase mb-4 tracking-widest italic">Binance Pay System</p>
+                            <p class="text-[10px] text-gray-500 uppercase mb-2">Scan QR or use Pay ID (JassonJD):</p>
+                            <div class="flex items-center gap-2 bg-black p-4 rounded-xl border border-slate-800 shadow-inner">
+                                <code class="text-amber-400 font-mono text-2xl tracking-[0.2em]">131264331</code>
+                                <button onclick="copyToClipboard('131264331')" class="bg-slate-800 p-2 rounded text-gray-400 hover:text-amber-500 transition"><i class="fa-solid fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="block-global" class="hidden animate-fade-in bg-black/30 p-8 rounded-3xl border border-blue-500/20 mb-10 text-left">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div class="flex flex-col justify-center items-center md:items-start">
+                            <p class="text-blue-500 font-black text-sm uppercase mb-4 tracking-widest italic">Credit Card via Switchere</p>
+                            <button onclick="window.open('https://switchere.com/exchange/buy-tether-trc20', '_blank')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl shadow-lg transition uppercase text-xs flex items-center justify-center gap-3">
+                                <i class="fa-solid fa-credit-card text-xl"></i> Buy with Card (Switchere)
+                            </button>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-gray-400 font-black text-[10px] uppercase border-b border-white/5 pb-2 italic">Direct Wallets:</p>
+                            <div class="text-[10px] space-y-2">
+                                <div class="flex justify-between items-center bg-black/50 p-3 rounded-lg border border-white/5">
+                                    <span class="text-green-400 font-bold uppercase italic tracking-tighter">🪙 USDT (TRC20)</span>
+                                    <button onclick="copyToClipboard('TTcz6MWc6dsDyoKTsDksgEowqUePr9UJg6')" class="text-slate-600 hover:text-green-400"><i class="fa-solid fa-copy"></i></button>
+                                </div>
+                                <div class="flex justify-between items-center bg-black/50 p-3 rounded-lg border border-white/5">
+                                    <span class="text-purple-400 font-bold uppercase italic tracking-tighter">🪙 USDT (Polygon)</span>
+                                    <button onclick="copyToClipboard('0x5cfe6633fa664765a0e2a7fa5d8110af935169bd')" class="text-slate-600 hover:text-purple-400"><i class="fa-solid fa-copy"></i></button>
+                                </div>
+                                <div class="flex justify-between items-center bg-black/50 p-3 rounded-lg border border-white/5">
+                                    <span class="text-yellow-500 font-bold uppercase italic tracking-tighter">🪙 USDT (BEP20)</span>
+                                    <button onclick="copyToClipboard('0x5cfe6633fa664765a0e2a7fa5d8110af935169bd')" class="text-slate-600 hover:text-yellow-500"><i class="fa-solid fa-copy"></i></button>
+                                </div>
+                                <div class="flex justify-between items-center bg-black/50 p-3 rounded-lg border border-white/5">
+                                    <span class="text-orange-500 font-bold uppercase italic tracking-tighter">₿ BTC (Network)</span>
+                                    <button onclick="copyToClipboard('1QFLPCuiQoBC59Q6DLokUbUoCEPaannEx9')" class="text-slate-600 hover:text-orange-500"><i class="fa-solid fa-copy"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center pt-8 border-t border-white/5">
+                    <p class="text-gray-500 text-[10px] uppercase font-bold mb-4 italic tracking-widest">Confirmation to Blaster required:</p>
+                    <a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-14 bg-[#229ED9] text-white py-5 rounded-2xl font-black text-lg hover:scale-105 transition shadow-[0_0_40px_rgba(34,158,217,0.3)] uppercase italic tracking-tighter">
+                        <i class="fa-brands fa-telegram mr-2 text-2xl"></i> Send Proof
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 relative z-10 bg-black/20">
         <div class="max-w-7xl mx-auto text-center mb-12">
-            <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text gold-gradient">Opiniones de Usuarios</h2>
+            <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text gold-gradient italic uppercase">Opinions</h2>
         </div>
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="card-glass p-8 rounded-3xl">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-500">CJ</div>
-                    <h4 class="font-bold">Carlos J.</h4>
+                    <h4 class="font-bold text-amber-500">Carlos J.</h4>
                 </div>
-                <p class="text-gray-400 text-sm italic">"Compré la licencia mensual para probar y a la semana pasé a la vitalicia. El ahorro de tiempo es real."</p>
-                <div class="mt-4 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double"></i> Compra Verificada</div>
+                <p class="text-gray-400 text-sm italic">"Compré la licencia mensual y a la semana pasé a la vitalicia. El ahorro de tiempo es real."</p>
+                <div class="mt-4 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double"></i> Verified</div>
             </div>
             <div class="card-glass p-8 rounded-3xl">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-500">MR</div>
-                    <h4 class="font-bold">Miguel R.</h4>
+                    <h4 class="font-bold text-amber-500">Miguel R.</h4>
                 </div>
-                <p class="text-gray-400 text-sm italic">"Soporte rápido y programa muy estable. Me encanta la función de exclusión de grupos."</p>
-                <div class="mt-4 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double"></i> Compra Verificada</div>
+                <p class="text-gray-400 text-sm italic">"Soporte rápido y programa muy estable. Me encanta la función de exclusión."</p>
+                <div class="mt-4 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double"></i> Verified</div>
             </div>
             <div class="card-glass p-8 rounded-3xl">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-500">AP</div>
-                    <h4 class="font-bold">Andrea P.</h4>
+                    <h4 class="font-bold text-amber-500">Andrea P.</h4>
                 </div>
-                <p class="text-gray-400 text-sm italic">"La mejor inversión para mi negocio de ventas en Telegram. El sistema 2FA funciona perfecto."</p>
-                <div class="mt-4 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double"></i> Compra Verificada</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="comprar" class="py-20 px-6 relative z-10">
-        <div class="max-w-7xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text gold-gradient">Planes Profesionales</h2>
-            <p class="text-gray-400">Selecciona tu plan ideal. Pagos rápidos, seguros y sin comisiones extras.</p>
-        </div>
-
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-20">
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '19.99', '1 Mes')">
-                <h3 class="font-bold mb-2">Mensual</h3>
-                <div class="text-3xl font-black mb-4">$19.99</div>
-                <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
-            </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '34.99', '3 Meses')">
-                <h3 class="font-bold mb-2">Trimestral</h3>
-                <div class="text-3xl font-black mb-4">$34.99</div>
-                <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
-            </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all transform md:-translate-y-4 border-amber-500/30 border-2" onclick="selectPlan(this, '54.99', '6 Meses')">
-                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amber-500 text-black text-xs font-black px-3 py-1 rounded-full">MÁS POPULAR</div>
-                <h3 class="font-bold mb-2 text-amber-500 mt-2">Semestral</h3>
-                <div class="text-3xl font-black mb-4">$54.99</div>
-                <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
-            </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '89.99', '1 Año')">
-                <h3 class="font-bold mb-2">Anual</h3>
-                <div class="text-3xl font-black mb-4">$89.99</div>
-                <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
-            </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all" onclick="selectPlan(this, '149.99', 'Vitalicio')">
-                <h3 class="font-bold mb-2 text-amber-500"><i class="fa-solid fa-crown"></i> Vitalicia</h3>
-                <div class="text-3xl font-black mb-4">$149.99</div>
-                <div class="w-full py-2 bg-slate-800 rounded-lg text-center font-bold text-sm transition-colors">Seleccionar</div>
-            </div>
-        </div>
-
-        <div id="checkout" class="max-w-4xl mx-auto p-8 card-glass rounded-3xl border-2 border-slate-700 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-32 bg-amber-500/10 blur-[50px] -z-10"></div>
-            
-            <div id="empty-state">
-                <i class="fa-solid fa-hand-pointer text-4xl text-slate-500 mb-4 animate-bounce"></i>
-                <p class="text-slate-400 font-bold text-lg">Elige un plan arriba para ver las instrucciones de pago</p>
-            </div>
-
-            <div id="payment-details" class="hidden">
-                <h4 class="text-xl font-bold mb-2">Has seleccionado el plan: <span id="selected-plan-name" class="text-amber-500 text-2xl uppercase">---</span></h4>
-                <div class="text-5xl font-black mb-6" id="display-price">$0.00 <span class="text-lg text-gray-500">USDT</span></div>
-                
-                <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-700 mb-6 text-left max-w-2xl mx-auto">
-                    <h5 class="font-bold text-amber-500 mb-4 border-b border-slate-700 pb-2"><i class="fa-solid fa-wallet mr-2"></i> Instrucciones de Pago</h5>
-                    
-                    <div class="mb-6 flex flex-col md:flex-row gap-6 items-center bg-black/40 p-5 rounded-xl border border-slate-800">
-                        <div class="w-48 h-48 flex-shrink-0 bg-[#0b0e11] rounded-xl p-2 border border-slate-700 shadow-[0_0_15px_rgba(243,186,47,0.15)] overflow-hidden flex items-center justify-center">
-                            <img src="image.png" alt="Binance Pay QR Code" class="max-w-full max-h-full object-contain rounded-lg">
-                        </div>
-                        <div class="flex-1 w-full text-center md:text-left">
-                            <p class="text-sm text-gray-300 font-bold mb-1"><i class="fa-solid fa-qrcode text-amber-500"></i> Opción 1: Binance Pay</p>
-                            <p class="text-xs text-gray-500 mb-3">Escanea el QR o envía al siguiente Pay ID (Usuario: JassonJD)</p>
-                            <div class="flex items-center gap-2">
-                                <code class="bg-black px-4 py-3 rounded-lg text-amber-400 font-mono text-xl flex-1 text-center md:text-left shadow-inner border border-slate-800">131264331</code>
-                                <button onclick="copyToClipboard('131264331')" class="bg-slate-700 p-3 rounded-lg hover:bg-slate-600 hover:text-amber-400 transition" title="Copiar ID"><i class="fa-solid fa-copy"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-2 bg-black/40 p-5 rounded-xl border border-slate-800">
-                        <p class="text-sm text-gray-300 font-bold mb-1"><i class="fa-brands fa-bitcoin text-amber-500"></i> Opción 2: Billetera Crypto</p>
-                        <p class="text-xs text-gray-500 mb-3">Envía USDT exactamente por la red <span class="font-bold text-white">Tron (TRC20)</span></p>
-                        <div class="flex items-center gap-2">
-                            <code class="bg-black px-4 py-3 rounded-lg text-green-400 font-mono text-xs sm:text-sm overflow-x-auto flex-1 whitespace-nowrap shadow-inner border border-slate-800">TTcz6MWc6dsDyoKTsDksgEowqUePr9UJg6</code>
-                            <button onclick="copyToClipboard('TTcz6MWc6dsDyoKTsDksgEowqUePr9UJg6')" class="bg-slate-700 p-3 rounded-lg hover:bg-slate-600 hover:text-green-400 transition" title="Copiar Billetera"><i class="fa-solid fa-copy"></i></button>
-                        </div>
-                    </div>
-                </div>
-                
-                <p class="text-lg text-gray-300 font-bold mb-4">¿Ya realizaste la transferencia?</p>
-                <a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-10 bg-[#229ED9] text-white py-4 rounded-2xl font-black text-xl hover:brightness-110 transition transform hover:scale-105 shadow-[0_0_20px_rgba(34,158,217,0.4)] w-full sm:w-auto">
-                    <i class="fa-brands fa-telegram text-2xl align-middle mr-2"></i> Enviar Comprobante
-                </a>
+                <p class="text-gray-400 text-sm italic">"La mejor inversión para mi negocio. El sistema 2FA funciona perfecto."</p>
+                <div class="mt-4 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double"></i> Verified</div>
             </div>
         </div>
     </section>
 
     <section class="py-20 px-6 relative z-10">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center text-transparent bg-clip-text gold-gradient">Preguntas Frecuentes</h2>
+            <h2 class="text-4xl font-bold mb-12 text-center text-transparent bg-clip-text gold-gradient uppercase italic">FAQ</h2>
             <div class="space-y-6">
                 <div class="card-glass p-6 rounded-2xl">
-                    <h4 class="font-bold mb-2 text-amber-500">¿Necesito saber de programación?</h4>
-                    <p class="text-gray-400 text-sm">No. Blaster Bot PRO está diseñado con una interfaz intuitiva. Solo instala, conecta tu cuenta de Telegram y empieza a automatizar.</p>
+                    <h4 class="font-bold mb-2 text-amber-500 italic uppercase text-xs">¿Necesito saber de programación?</h4>
+                    <p class="text-gray-400 text-xs">No. Blaster Bot PRO está diseñado con una interfaz intuitiva. Solo instala y conecta tu cuenta.</p>
                 </div>
                 <div class="card-glass p-6 rounded-2xl">
-                    <h4 class="font-bold mb-2 text-amber-500">¿Qué es la licencia HWID?</h4>
-                    <p class="text-gray-400 text-sm">Es un sistema de seguridad que vincula tu clave de activación a los componentes físicos de tu PC, evitando el uso no autorizado.</p>
-                </div>
-                <div class="card-glass p-6 rounded-2xl">
-                    <h4 class="font-bold mb-2 text-amber-500">¿Puedo usar mi cuenta con 2FA activa?</h4>
-                    <p class="text-gray-400 text-sm">Sí, soportamos nativamente la Verificación en Dos Pasos de Telegram para máxima seguridad.</p>
+                    <h4 class="font-bold mb-2 text-amber-500 italic uppercase text-xs">¿Qué es la licencia HWID?</h4>
+                    <p class="text-gray-400 text-xs">Es un sistema de seguridad que vincula tu clave de activación a tu PC específica.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-10 px-6 text-center text-gray-500 border-t border-slate-900 relative z-10 bg-black/60">
-        <img src="logo.png" alt="Blaster Bot PRO Logo" class="w-16 h-16 mx-auto mb-4 rounded-full opacity-75 hover:opacity-100 transition duration-300">
-        
-        <div class="flex justify-center gap-8 mb-6 text-3xl">
+    <footer class="py-10 text-center text-gray-700 border-t border-slate-900 bg-black/80 relative z-10">
+        <img src="logo.png" alt="Logo" class="w-12 h-12 mx-auto mb-4 rounded-full opacity-50">
+        <div class="flex justify-center gap-6 mb-4 text-2xl">
             <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="hover:text-[#229ED9] transition"><i class="fa-brands fa-telegram"></i></a>
             <a href="https://t.me/spbot247" target="_blank" class="hover:text-amber-500 transition"><i class="fa-solid fa-headset"></i></a>
         </div>
-        <p>© 2026 Blaster Bot PRO - Developed by BOT $eller (Dron)</p>
+        <p class="uppercase text-[9px] font-black tracking-[0.5em]">Blaster Bot PRO © 2026 - Global Bot Seller</p>
     </footer>
 
     <script>
-        // Función para seleccionar plan y generar el enlace dinámico de Telegram
-        function selectPlan(element, price, name) {
-            // Resetear estilos
-            document.querySelectorAll('.plan-card').forEach(card => {
-                card.classList.remove('card-selected');
-                card.querySelector('div:last-child').innerText = "Seleccionar";
-                card.querySelector('div:last-child').classList.replace('gold-gradient', 'bg-slate-800');
-                card.querySelector('div:last-child').classList.remove('text-black');
-            });
-            
-            // Aplicar estilo al seleccionado
-            element.classList.add('card-selected');
-            element.querySelector('div:last-child').innerText = "Seleccionado";
-            element.querySelector('div:last-child').classList.replace('bg-slate-800', 'gold-gradient');
-            element.querySelector('div:last-child').classList.add('text-black');
-            
-            // Mostrar panel de pago
-            document.getElementById('empty-state').classList.add('hidden');
-            document.getElementById('payment-details').classList.remove('hidden');
-            document.getElementById('selected-plan-name').innerText = name;
-            document.getElementById('display-price').innerHTML = "$" + price + " <span class='text-lg text-gray-500'>USDT</span>";
-            
-            // Generar mensaje automático para Telegram
-            const mensajeTelegram = `¡Hola Dron! Acabo de pagar $${price} USDT por el plan *${name}* de Blaster Bot PRO. Aquí te envío mi comprobante para recibir mi licencia HWID:`;
-            const encodedMessage = encodeURIComponent(mensajeTelegram);
-            document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodedMessage}`;
-            
-            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        // Función para copiar al portapapeles
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("¡Copiado al portapapeles!");
-            });
-        }
-
-        // Animación Matrix
+        // Matrix Background
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -266,8 +286,7 @@
         function drawMatrix() {
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#10b981";
-            ctx.font = fontSize + "px monospace";
+            ctx.fillStyle = "#f59e0b"; ctx.font = fontSize + "px monospace";
             for (let i = 0; i < drops.length; i++) {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -277,6 +296,98 @@
         }
         setInterval(drawMatrix, 33);
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+        // Turnstile Enable Button
+        function enableVerifyBtn() {
+            const btn = document.getElementById('verify-btn');
+            btn.disabled = false;
+            btn.classList.remove('bg-slate-700', 'text-gray-400', 'cursor-not-allowed');
+            btn.classList.add('gold-gradient', 'text-black', 'cursor-pointer');
+        }
+
+        // Plan Selection
+        function selectPlan(element, price, name) {
+            document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('card-selected'));
+            element.classList.add('card-selected');
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('payment-selection').classList.remove('hidden');
+            document.getElementById('selected-plan-name').innerText = name;
+            
+            const msg = `Hi Blaster! I want the *${name}* plan ($${price}). Here is my proof for the key:`;
+            document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodeURIComponent(msg)}`;
+            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Toggle Payment Methods
+        function toggleMethod(method) {
+            ['binance', 'global'].forEach(m => {
+                document.getElementById(`block-${m}`).classList.add('hidden');
+                document.getElementById(`btn-${m}`).classList.remove('method-active');
+            });
+            document.getElementById(`block-${method}`).classList.remove('hidden');
+            document.getElementById(`btn-${method}`).classList.add('method-active');
+        }
+
+        // License Checker & Secure Download Unlock
+        async function checkLicenseWeb() {
+            const key = document.getElementById('web-key-input').value.trim().toLowerCase();
+            const resDiv = document.getElementById('license-result');
+            const statusTxt = document.getElementById('result-status');
+            const iconDiv = document.getElementById('result-icon');
+            
+            if (!key) return;
+            
+            resDiv.classList.remove('hidden');
+            statusTxt.innerText = "VERIFYING..."; iconDiv.innerHTML = '<i class="fas fa-circle-notch fa-spin text-amber-500"></i>';
+            
+            const SB_URL = "https://wyeivrdsoqsmrsppwokq.supabase.co";
+            const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZWl2cmRzb3FzbXJzcHB3b2txIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzA2NDgsImV4cCI6MjA5MjY0NjY0OH0.RXHJWnqbpGquWluikJszyqTj9RPDM3b7-VUsOWcDEoU";
+
+            try {
+                const response = await fetch(`${SB_URL}/rest/v1/licencias?key=eq.${key}&select=status,exp_date`, {
+                    headers: { "apikey": SB_KEY, "Authorization": `Bearer ${SB_KEY}` }
+                });
+                const data = await response.json();
+                
+                if (data && data.length > 0) {
+                    const lic = data[0];
+                    if (lic.status.toLowerCase() === 'active') {
+                        iconDiv.innerHTML = '<i class="fas fa-check-circle text-green-500"></i>';
+                        statusTxt.innerText = "AUTHORIZED"; 
+                        statusTxt.className = "text-green-500 font-black text-2xl italic uppercase";
+                        document.getElementById('result-exp').innerText = `Expires: ${lic.exp_date}`;
+                        
+                        // Unlock Download
+                        document.getElementById('download-locked').classList.add('hidden');
+                        document.getElementById('download-container').classList.replace('border-slate-700', 'border-green-500');
+                        document.getElementById('download-unlocked').classList.remove('hidden');
+                        document.getElementById('secure-download-link').href = "https://drive.google.com/file/d/1TXG9WNioNf4SOtWR8wzMxrmrUygUpLo7/view?usp=sharing";
+                    } else {
+                        iconDiv.innerHTML = '<i class="fas fa-times-circle text-red-500"></i>';
+                        statusTxt.innerText = "SUSPENDED";
+                        statusTxt.className = "text-red-500 font-black text-2xl italic uppercase";
+                        bloquearDescarga();
+                    }
+                } else {
+                    iconDiv.innerHTML = '<i class="fas fa-ban text-amber-500"></i>';
+                    statusTxt.innerText = "INVALID KEY";
+                    statusTxt.className = "text-amber-500 font-black text-2xl italic uppercase";
+                    bloquearDescarga();
+                }
+            } catch (e) { 
+                statusTxt.innerText = "ERROR"; 
+                bloquearDescarga(); 
+            }
+        }
+
+        function bloquearDescarga() {
+            document.getElementById('download-locked').classList.remove('hidden');
+            document.getElementById('download-unlocked').classList.add('hidden');
+            document.getElementById('download-container').classList.replace('border-green-500', 'border-slate-700');
+            document.getElementById('secure-download-link').href = "#";
+        }
+
+        function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => { alert("Copied!"); }); }
     </script>
 </body>
 </html>
