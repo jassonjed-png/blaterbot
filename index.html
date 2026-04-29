@@ -112,28 +112,28 @@
     <section id="comprar" class="py-20 px-6 relative z-10 text-center">
         <h2 class="text-4xl font-bold mb-16 text-transparent bg-clip-text gold-gradient uppercase italic">Professional Plans</h2>
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-20">
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', 'Monthly')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', 'Monthly', 'https://nowpayments.io/payment/?iid=5178766239')">
                 <h3 class="font-bold mb-2">Monthly</h3>
                 <div class="text-3xl font-black mb-4 text-white">$19.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', 'Quarterly')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', 'Quarterly', 'https://nowpayments.io/payment/?iid=4836685273')">
                 <h3 class="font-bold mb-2">Quarterly</h3>
                 <div class="text-3xl font-black mb-4 text-white">$34.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between border-amber-500/40 border-2" onclick="selectPlan(this, '54.99', 'Semi-Annual')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between border-amber-500/40 border-2" onclick="selectPlan(this, '54.99', 'Semi-Annual', 'https://nowpayments.io/payment/?iid=4815032598')">
                 <div class="bg-amber-500 text-black text-[9px] font-black px-2 py-0.5 rounded absolute -top-2 left-4">POPULAR</div>
                 <h3 class="font-bold mb-2 text-amber-500">Semi-Annual</h3>
                 <div class="text-3xl font-black mb-4 text-white">$54.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '89.99', 'Annual')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '89.99', 'Annual', 'https://nowpayments.io/payment/?iid=5548518926')">
                 <h3 class="font-bold mb-2">Annual</h3>
                 <div class="text-3xl font-black mb-4 text-white">$89.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
             </div>
-            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '149.99', 'Lifetime')">
+            <div class="plan-card card-glass p-6 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '149.99', 'Lifetime', 'https://nowpayments.io/payment/?iid=5431076590')">
                 <h3 class="font-bold mb-2 text-amber-500 italic"><i class="fa-solid fa-crown mr-1"></i> Lifetime</h3>
                 <div class="text-3xl font-black mb-4 text-white">$149.99</div>
                 <div class="w-full py-2 bg-slate-800 rounded-lg text-center text-[10px] font-black uppercase">Select</div>
@@ -177,12 +177,25 @@
 
                 <div id="block-global" class="hidden animate-fade-in bg-black/30 p-8 rounded-3xl border border-blue-500/20 mb-10 text-left">
                     <div class="grid md:grid-cols-2 gap-10">
-                        <div class="flex flex-col justify-center items-center md:items-start">
-                            <p class="text-blue-500 font-black text-sm uppercase mb-4 tracking-widest italic">Credit Card via Switchere</p>
-                            <button onclick="window.open('https://switchere.com/exchange/buy-tether-trc20', '_blank')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl shadow-lg transition uppercase text-xs flex items-center justify-center gap-3">
-                                <i class="fa-solid fa-credit-card text-xl"></i> Buy with Card (Switchere)
-                            </button>
+                        
+                        <div class="flex flex-col justify-center items-center md:items-start space-y-6">
+                            
+                            <div class="w-full">
+                                <p class="text-amber-500 font-black text-sm uppercase mb-2 tracking-widest italic">Automated Crypto Payment</p>
+                                <button onclick="payWithNowPayments()" class="w-full gold-gradient text-black font-black py-5 rounded-2xl shadow-lg transition hover:scale-105 uppercase text-xs flex items-center justify-center gap-3">
+                                    <i class="fa-brands fa-bitcoin text-xl"></i> Pay with NOWPayments
+                                </button>
+                            </div>
+
+                            <div class="w-full">
+                                <p class="text-blue-500 font-black text-sm uppercase mb-2 tracking-widest italic">Credit Card via Switchere</p>
+                                <button onclick="window.open('https://switchere.com/exchange/buy-tether-trc20', '_blank')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl shadow-lg transition uppercase text-xs flex items-center justify-center gap-3">
+                                    <i class="fa-solid fa-credit-card text-xl"></i> Buy with Card (Switchere)
+                                </button>
+                            </div>
+
                         </div>
+                        
                         <div class="space-y-3">
                             <p class="text-gray-400 font-black text-[10px] uppercase border-b border-white/5 pb-2 italic">Direct Wallets:</p>
                             <div class="text-[10px] space-y-2">
@@ -305,17 +318,31 @@
             btn.classList.add('gold-gradient', 'text-black', 'cursor-pointer');
         }
 
-        // Plan Selection
-        function selectPlan(element, price, name) {
+        // VARIABLE PARA NOWPAYMENTS AÑADIDA
+        let currentNowPaymentsLink = "";
+
+        // Plan Selection MODIFICADO (ahora guarda el link de NOWPayments)
+        function selectPlan(element, price, name, npLink) {
             document.querySelectorAll('.plan-card').forEach(card => card.classList.remove('card-selected'));
             element.classList.add('card-selected');
             document.getElementById('empty-state').classList.add('hidden');
             document.getElementById('payment-selection').classList.remove('hidden');
             document.getElementById('selected-plan-name').innerText = name;
             
+            currentNowPaymentsLink = npLink; // Guarda el link del plan seleccionado
+
             const msg = `Hi Blaster! I want the *${name}* plan ($${price}). Here is my proof for the key:`;
             document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodeURIComponent(msg)}`;
             document.getElementById('checkout').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // FUNCIÓN DEL BOTÓN NOWPAYMENTS AÑADIDA
+        function payWithNowPayments() {
+            if (currentNowPaymentsLink) {
+                window.open(currentNowPaymentsLink, '_blank');
+            } else {
+                alert("Por favor selecciona un plan primero.");
+            }
         }
 
         // Toggle Payment Methods
