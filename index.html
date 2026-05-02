@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap');
@@ -27,7 +28,6 @@
         /* MODO CLARO */
         body.light-mode { background-color: #f8fafc; color: #0f172a; }
         body.light-mode .card-glass { background: rgba(255,255,255,0.8); border: 1px solid rgba(245,158,11,0.2); }
-        body.light-mode .card-glass:hover { background: rgba(255,255,255,0.95); }
         body.light-mode .sidebar { background: rgba(255,255,255,0.95); border-right: 1px solid rgba(0,0,0,0.1); }
         body.light-mode .bg-black\/40, body.light-mode .bg-black\/30, body.light-mode .bg-black\/50 { background: rgba(241,245,249,0.8); }
         body.light-mode .bg-black\/20 { background: rgba(241,245,249,0.5); }
@@ -45,7 +45,7 @@
         body.light-mode .text-slate-500 { color: #64748b; }
         body.light-mode .text-slate-600 { color: #475569; }
         body.light-mode .text-white { color: #0f172a; }
-        body.light-mode footer { background: rgba(255,255,255,0.9); }
+        body.light-mode .preloader { background: rgba(255,255,255,0.95); }
         
         .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%); }
         .gold-text { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -55,6 +55,7 @@
             backdrop-filter: blur(20px); 
             border: 1px solid rgba(245,158,11,0.1); 
             transition: all 0.4s; 
+            transform-style: preserve-3d;
         }
         .card-glass:hover { border-color: rgba(245,158,11,0.3); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(245,158,11,0.08); }
         .card-selected { border: 2px solid #f59e0b !important; transform: scale(1.03); box-shadow: 0 0 25px rgba(245,158,11,0.4); background: rgba(30,41,59,0.9); }
@@ -66,6 +67,8 @@
         @keyframes slideInRight { from { opacity: 0; transform: translateX(80px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slideOutRight { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(80px); } }
         @keyframes countdownPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes spinLogo { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes bellShake { 0%,100% { transform: rotate(0); } 10% { transform: rotate(15deg); } 20% { transform: rotate(-15deg); } 30% { transform: rotate(10deg); } 40% { transform: rotate(-10deg); } 50% { transform: rotate(0); } }
         
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
         .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
@@ -74,6 +77,8 @@
         .animate-slide-in { animation: slideInRight 0.4s ease-out forwards; }
         .animate-slide-out { animation: slideOutRight 0.4s ease-in forwards; }
         .countdown-pulse { animation: countdownPulse 1s ease-in-out infinite; }
+        .spin-logo { animation: spinLogo 1.5s linear infinite; }
+        .bell-shake { animation: bellShake 2s ease-in-out infinite; }
         
         .method-btn { transition: all 0.3s; border: 1px solid rgba(255,255,255,0.1); }
         .method-active { border-color: #f59e0b; background: rgba(245,158,11,0.15) !important; box-shadow: 0 0 20px rgba(245,158,11,0.2); }
@@ -81,6 +86,41 @@
         .swiper-pagination-bullet { background: #f59e0b !important; }
         .swiper-button-next, .swiper-button-prev { color: #f59e0b !important; }
         .stat-number { font-variant-numeric: tabular-nums; }
+
+        /* PRELOADER */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(245,158,11,0.3);
+            border-top-color: #f59e0b;
+            animation: spinLogo 0.8s linear infinite;
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90vh; border-radius: 16px; border: 2px solid rgba(245,158,11,0.3); }
 
         /* SIDEBAR */
         .sidebar {
@@ -98,66 +138,76 @@
         }
         .sidebar.mobile-open { transform: translateX(0); }
 
-        /* CONTENIDO PRINCIPAL */
-        .main-content {
-            margin-left: 220px;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* PESTAÑAS */
+        .main-content { margin-left: 220px; min-height: 100vh; transition: margin-left 0.3s ease; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
 
-        /* BOTÓN SIDEBAR */
         .sidebar-btn {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            padding: 12px 20px;
+            padding: 10px 16px;
             text-align: left;
             color: #94a3b8;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             transition: all 0.3s;
             border-left: 3px solid transparent;
+            white-space: nowrap;
         }
         .sidebar-btn:hover { color: #f59e0b; background: rgba(245,158,11,0.05); }
         .sidebar-btn.active { color: #f59e0b; background: rgba(245,158,11,0.1); border-left-color: #f59e0b; }
-        .sidebar-btn i { width: 20px; text-align: center; font-size: 0.9rem; }
+        .sidebar-btn i { width: 18px; text-align: center; font-size: 0.85rem; }
 
-        /* Botón hamburguesa móvil */
-        .hamburger-btn {
-            display: none;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 60;
-            width: 40px;
-            height: 40px;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid rgba(245,158,11,0.3);
-            border-radius: 10px;
-            color: #f59e0b;
-            font-size: 1.2rem;
+        .hamburger-btn { display: none; position: fixed; top: 10px; left: 10px; z-index: 60; width: 38px; height: 38px; background: rgba(0,0,0,0.8); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; color: #f59e0b; font-size: 1.1rem; cursor: pointer; }
+        .toast-notification { position: fixed; bottom: 30px; left: 240px; z-index: 9999; max-width: 300px; }
+
+        /* BADGE ONLINE */
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 8px #22c55e;
         }
 
-        /* Toast notificación */
-        .toast-notification {
-            position: fixed;
-            bottom: 30px;
-            left: 240px;
-            z-index: 9999;
-            max-width: 300px;
+        /* CAMPAÑA DE NOTIFICACIONES */
+        .notification-badge {
+            position: relative;
+        }
+        .notification-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: white;
+            font-size: 9px;
+            font-weight: 900;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* VISITORS COUNTER */
+        .visitors-pulse {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
         }
 
         #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s; }
         #back-to-top.show { opacity: 1; visibility: visible; }
 
-        /* Tablet y móvil */
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 260px; }
             .sidebar.mobile-open { transform: translateX(0); }
@@ -169,6 +219,19 @@
 </head>
 <body class="relative">
 
+    <!-- ===== PRELOADER ===== -->
+    <div id="preloader" class="preloader">
+        <div style="text-align:center">
+            <div class="preloader-logo" style="margin:0 auto 16px"></div>
+            <p class="gold-text text-sm font-black uppercase tracking-widest">Loading...</p>
+        </div>
+    </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Screenshot">
+    </div>
+
     <canvas id="matrix-bg" class="fixed top-0 left-0 w-full h-full -z-10 opacity-15"></canvas>
     
     <div class="fixed top-0 left-0 w-full h-full -z-5 pointer-events-none">
@@ -176,73 +239,60 @@
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-amber-500/3 rounded-full blur-3xl animate-float" style="animation-delay: 3s;"></div>
     </div>
 
-    <!-- ===== BOTÓN HAMBURGUESA MÓVIL ===== -->
-    <button id="hamburger-btn" class="hamburger-btn" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- ===== OVERLAY MÓVIL ===== -->
+    <button id="hamburger-btn" class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="closeSidebar()"></div>
 
-    <!-- ===== SIDEBAR IZQUIERDO ===== -->
+    <!-- ===== SIDEBAR ===== -->
     <aside id="sidebar" class="sidebar">
-        <!-- Logo -->
-        <div class="p-5 border-b border-amber-500/10 mb-2">
+        <div class="p-4 border-b border-amber-500/10 mb-1">
             <div class="flex items-center gap-2 cursor-pointer" onclick="showTab('home')">
-                <img src="logo.png" alt="Logo" class="w-8 h-8 rounded-full border-2 border-amber-500/50">
-                <span class="text-sm font-black italic text-white">Blaster <span class="gold-text">Bot</span></span>
-                <span class="text-[8px] bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded-full">PRO</span>
+                <img src="logo.png" alt="Logo" class="w-7 h-7 rounded-full border-2 border-amber-500/50">
+                <span class="text-xs font-black italic">Blaster <span class="gold-text">Bot</span></span>
+                <span class="text-[7px] bg-amber-500/20 text-amber-500 px-1.5 py-0.5 rounded-full">PRO</span>
             </div>
         </div>
 
-        <!-- Navegación -->
-        <nav class="px-2 py-4 space-y-1">
-            <button onclick="showTab('home')" class="sidebar-btn active" data-tab="home">
-                <i class="fas fa-home"></i> Home
-            </button>
-            <button onclick="showTab('features')" class="sidebar-btn" data-tab="features">
-                <i class="fas fa-star"></i> Features
-            </button>
-            <button onclick="showTab('gallery')" class="sidebar-btn" data-tab="gallery">
-                <i class="fas fa-images"></i> Gallery
-            </button>
-            <button onclick="showTab('updates')" class="sidebar-btn" data-tab="updates">
+        <nav class="px-2 py-3 space-y-0.5">
+            <button onclick="showTab('home')" class="sidebar-btn active" data-tab="home"><i class="fas fa-home"></i> Home</button>
+            <button onclick="showTab('features')" class="sidebar-btn" data-tab="features"><i class="fas fa-star"></i> Features</button>
+            <button onclick="showTab('gallery')" class="sidebar-btn" data-tab="gallery"><i class="fas fa-images"></i> Gallery</button>
+            <button onclick="showTab('updates')" class="sidebar-btn notification-badge" data-tab="updates">
                 <i class="fas fa-history"></i> Updates
+                <span class="notification-count">3</span>
             </button>
-            <button onclick="showTab('compare')" class="sidebar-btn" data-tab="compare">
-                <i class="fas fa-table"></i> Compare
-            </button>
-            <button onclick="showTab('pricing')" class="sidebar-btn" data-tab="pricing">
-                <i class="fas fa-tags"></i> Pricing
-            </button>
-            <button onclick="showTab('validator')" class="sidebar-btn" data-tab="validator">
-                <i class="fas fa-key"></i> Validator
-            </button>
+            <button onclick="showTab('compare')" class="sidebar-btn" data-tab="compare"><i class="fas fa-table"></i> Compare</button>
+            <button onclick="showTab('pricing')" class="sidebar-btn" data-tab="pricing"><i class="fas fa-tags"></i> Pricing</button>
+            <button onclick="showTab('validator')" class="sidebar-btn" data-tab="validator"><i class="fas fa-key"></i> Validator</button>
         </nav>
 
-        <!-- Separador -->
-        <div class="border-t border-amber-500/10 mx-4 my-4"></div>
+        <div class="border-t border-amber-500/10 mx-3 my-3"></div>
 
-        <!-- Links externos -->
-        <div class="px-4 space-y-2">
+        <div class="px-3 space-y-1">
             <a href="https://t.me/spbot247" target="_blank" class="sidebar-btn">
                 <i class="fas fa-headset"></i> Support
+                <span class="online-dot" style="margin-left:auto" title="Online now"></span>
             </a>
             <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="sidebar-btn">
                 <i class="fa-brands fa-telegram"></i> Channel
             </a>
         </div>
 
-        <!-- Toggle modo -->
-        <div class="px-4 mt-4">
+        <div class="px-3 mt-3">
             <button onclick="toggleTheme()" class="sidebar-btn w-full">
                 <i class="fas fa-sun"></i> <span id="theme-label">Light Mode</span>
             </button>
         </div>
 
-        <!-- Footer sidebar -->
-        <div class="absolute bottom-4 left-0 right-0 text-center">
-            <p class="text-[8px] text-gray-600 uppercase tracking-wider">Blaster Bot PRO © 2026</p>
+        <!-- Contador de visitantes -->
+        <div class="px-3 mt-3">
+            <div class="sidebar-btn" style="cursor:default; font-size:0.65rem">
+                <span class="visitors-pulse"></span>
+                <span id="visitor-count">0</span> online now
+            </div>
+        </div>
+
+        <div class="absolute bottom-3 left-0 right-0 text-center">
+            <p class="text-[7px] text-gray-600 uppercase tracking-wider">Blaster Bot PRO © 2026</p>
         </div>
     </aside>
 
@@ -251,28 +301,28 @@
 
         <!-- ===== TAB: HOME ===== -->
         <div id="tab-home" class="tab-content active">
-            <header class="pt-16 pb-10 px-6 text-center">
+            <header class="pt-14 pb-8 px-6 text-center">
                 <div class="max-w-5xl mx-auto">
-                    <div class="inline-block mb-5">
+                    <div class="inline-block mb-4">
                         <span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
                             <i class="fas fa-bolt mr-1"></i>New Version 4.0 Available
                         </span>
                     </div>
-                    <h1 class="text-4xl md:text-7xl font-extrabold mb-4 tracking-tighter uppercase">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-3 tracking-tighter uppercase">
                         <span class="gold-text">Blaster Bot</span>
                         <br>
-                        <span class="text-2xl md:text-4xl">Automation Reimagined</span>
+                        <span class="text-2xl md:text-3xl">Automation Reimagined</span>
                     </h1>
-                    <p class="text-lg text-gray-400 mb-8 max-w-3xl mx-auto">
+                    <p class="text-base text-gray-400 mb-6 max-w-2xl mx-auto">
                         Scale your international marketing with military-grade automation. 
                         <span class="text-amber-500 font-semibold">Anti-ban technology</span> trusted worldwide.
                     </p>
-                    <div class="flex justify-center gap-3 flex-wrap mb-14">
-                        <button onclick="showTab('pricing')" class="gold-gradient text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform shadow-xl uppercase text-sm"><i class="fas fa-rocket mr-2"></i>Get Started</button>
-                        <button onclick="showTab('gallery')" class="bg-white/5 border border-white/10 py-3 px-8 rounded-full hover:bg-white/10 transition uppercase text-sm"><i class="fas fa-play mr-2"></i>Watch Demo</button>
-                        <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="bg-[#229ED9] text-white py-3 px-8 rounded-full hover:brightness-110 transition uppercase text-sm shadow-lg flex items-center gap-2"><i class="fa-brands fa-telegram"></i> Join Channel</a>
+                    <div class="flex justify-center gap-3 flex-wrap mb-10">
+                        <button onclick="showTab('pricing')" class="gold-gradient text-black font-bold py-3 px-7 rounded-full hover:scale-105 transition-transform shadow-xl uppercase text-sm"><i class="fas fa-rocket mr-2"></i>Get Started</button>
+                        <button onclick="showTab('gallery')" class="bg-white/5 border border-white/10 py-3 px-7 rounded-full hover:bg-white/10 transition uppercase text-sm"><i class="fas fa-play mr-2"></i>Watch Demo</button>
+                        <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="bg-[#229ED9] text-white py-3 px-7 rounded-full hover:brightness-110 transition uppercase text-sm shadow-lg flex items-center gap-2"><i class="fa-brands fa-telegram"></i> Join Channel</a>
                     </div>
-                    <div class="grid grid-cols-3 gap-6 max-w-xl mx-auto pt-10 border-t border-white/5">
+                    <div class="grid grid-cols-3 gap-5 max-w-lg mx-auto pt-8 border-t border-white/5">
                         <div><div class="text-2xl font-black gold-text stat-number" data-target="10000">0</div><div class="text-xs text-gray-500 uppercase mt-1">Active Users</div></div>
                         <div><div class="text-2xl font-black gold-text stat-number" data-target="150">0</div><div class="text-xs text-gray-500 uppercase mt-1">Countries</div></div>
                         <div><div class="text-2xl font-black gold-text">99.9<span class="text-base">%</span></div><div class="text-xs text-gray-500 uppercase mt-1">Uptime</div></div>
@@ -280,42 +330,39 @@
                 </div>
             </header>
 
-            <!-- Contador -->
-            <div class="py-6 px-6 bg-black/20">
-                <div class="max-w-2xl mx-auto">
-                    <div class="card-glass p-5 rounded-2xl text-center border-2 border-amber-500/30">
-                        <p class="text-amber-500 font-black text-xs uppercase mb-2 tracking-widest">⚡ Limited Time Offer</p>
-                        <p class="text-base font-bold mb-3">20% OFF: <span class="gold-text text-xl">BLASTER20</span></p>
+            <div class="py-5 px-6 bg-black/20">
+                <div class="max-w-lg mx-auto">
+                    <div class="card-glass p-4 rounded-2xl text-center border-2 border-amber-500/30" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                        <p class="text-amber-500 font-black text-xs uppercase mb-1 tracking-widest">⚡ Limited Time Offer</p>
+                        <p class="text-sm font-bold mb-2">20% OFF: <span class="gold-text text-lg">BLASTER20</span></p>
                         <div class="flex justify-center gap-3">
-                            <div class="bg-black/40 p-2 rounded-xl min-w-[55px]"><span id="countdown-hours" class="text-xl font-black gold-text countdown-pulse">02</span><p class="text-[9px] text-gray-500 uppercase">Hrs</p></div>
-                            <div class="bg-black/40 p-2 rounded-xl min-w-[55px]"><span id="countdown-minutes" class="text-xl font-black gold-text countdown-pulse">15</span><p class="text-[9px] text-gray-500 uppercase">Min</p></div>
-                            <div class="bg-black/40 p-2 rounded-xl min-w-[55px]"><span id="countdown-seconds" class="text-xl font-black gold-text countdown-pulse">30</span><p class="text-[9px] text-gray-500 uppercase">Sec</p></div>
+                            <div class="bg-black/40 p-2 rounded-xl min-w-[50px]"><span id="countdown-hours" class="text-lg font-black gold-text countdown-pulse">02</span><p class="text-[8px] text-gray-500 uppercase">Hrs</p></div>
+                            <div class="bg-black/40 p-2 rounded-xl min-w-[50px]"><span id="countdown-minutes" class="text-lg font-black gold-text countdown-pulse">15</span><p class="text-[8px] text-gray-500 uppercase">Min</p></div>
+                            <div class="bg-black/40 p-2 rounded-xl min-w-[50px]"><span id="countdown-seconds" class="text-lg font-black gold-text countdown-pulse">30</span><p class="text-[8px] text-gray-500 uppercase">Sec</p></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats -->
-            <div class="py-12 px-6">
+            <div class="py-10 px-6">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-2xl font-black mb-8 text-center gold-text uppercase">Trusted Worldwide</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="card-glass p-5 rounded-2xl text-center"><div class="text-2xl font-black gold-text stat-number mb-1" data-target="10000">0</div><p class="text-gray-400 text-xs uppercase">Active Licenses</p></div>
-                        <div class="card-glass p-5 rounded-2xl text-center"><div class="text-2xl font-black gold-text stat-number mb-1" data-target="500000">0</div><p class="text-gray-400 text-xs uppercase">Messages Sent</p></div>
-                        <div class="card-glass p-5 rounded-2xl text-center"><div class="text-2xl font-black gold-text stat-number mb-1" data-target="150">0</div><p class="text-gray-400 text-xs uppercase">Countries</p></div>
-                        <div class="card-glass p-5 rounded-2xl text-center"><div class="text-2xl font-black gold-text mb-1">24/7</div><p class="text-gray-400 text-xs uppercase">Support</p></div>
+                    <h2 class="text-2xl font-black mb-6 text-center gold-text uppercase">Trusted Worldwide</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="10000">0</div><p class="text-gray-400 text-xs uppercase">Active Licenses</p></div>
+                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="500000">0</div><p class="text-gray-400 text-xs uppercase">Messages Sent</p></div>
+                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="150">0</div><p class="text-gray-400 text-xs uppercase">Countries</p></div>
+                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text mb-1">24/7</div><p class="text-gray-400 text-xs uppercase">Support</p></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Testimonios -->
-            <div class="py-12 px-6 bg-black/20">
+            <div class="py-10 px-6 bg-black/20">
                 <div class="max-w-5xl mx-auto">
-                    <h2 class="text-2xl font-black mb-8 text-center gold-text uppercase">What Users Say</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="card-glass p-5 rounded-2xl"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center font-bold text-amber-500 text-sm">CJ</div><div><h4 class="font-bold text-amber-500 text-sm">Carlos J.</h4><div class="text-amber-500 text-xs">★★★★★</div></div></div><p class="text-gray-400 text-xs">"Compré la licencia mensual y a la semana pasé a la vitalicia."</p><div class="mt-2 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i> Verified</div></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center font-bold text-amber-500 text-sm">MR</div><div><h4 class="font-bold text-amber-500 text-sm">Miguel R.</h4><div class="text-amber-500 text-xs">★★★★★</div></div></div><p class="text-gray-400 text-xs">"Soporte rápido y programa muy estable."</p><div class="mt-2 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i> Verified</div></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center font-bold text-amber-500 text-sm">AP</div><div><h4 class="font-bold text-amber-500 text-sm">Andrea P.</h4><div class="text-amber-500 text-xs">★★★★★</div></div></div><p class="text-gray-400 text-xs">"La mejor inversión para mi negocio."</p><div class="mt-2 text-xs text-green-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i> Verified</div></div>
+                    <h2 class="text-2xl font-black mb-6 text-center gold-text uppercase">What Users Say</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="6"><div class="flex items-center gap-2 mb-2"><div class="w-7 h-7 bg-amber-500/20 rounded-full flex items-center justify-center font-bold text-amber-500 text-xs">CJ</div><div><h4 class="font-bold text-amber-500 text-xs">Carlos J.</h4><div class="text-amber-500 text-[10px]">★★★★★</div></div></div><p class="text-gray-400 text-xs">"Compré la mensual y a la semana pasé a la vitalicia."</p><div class="mt-2 text-[10px] text-green-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i> Verified</div></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="6"><div class="flex items-center gap-2 mb-2"><div class="w-7 h-7 bg-amber-500/20 rounded-full flex items-center justify-center font-bold text-amber-500 text-xs">MR</div><div><h4 class="font-bold text-amber-500 text-xs">Miguel R.</h4><div class="text-amber-500 text-[10px]">★★★★★</div></div></div><p class="text-gray-400 text-xs">"Soporte rápido y programa muy estable."</p><div class="mt-2 text-[10px] text-green-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i> Verified</div></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="6"><div class="flex items-center gap-2 mb-2"><div class="w-7 h-7 bg-amber-500/20 rounded-full flex items-center justify-center font-bold text-amber-500 text-xs">AP</div><div><h4 class="font-bold text-amber-500 text-xs">Andrea P.</h4><div class="text-amber-500 text-[10px]">★★★★★</div></div></div><p class="text-gray-400 text-xs">"La mejor inversión para mi negocio."</p><div class="mt-2 text-[10px] text-green-400 font-bold"><i class="fa-solid fa-check-double mr-1"></i> Verified</div></div>
                     </div>
                 </div>
             </div>
@@ -323,16 +370,16 @@
 
         <!-- ===== TAB: FEATURES ===== -->
         <div id="tab-features" class="tab-content">
-            <section class="py-14 px-6">
-                <div class="max-w-6xl mx-auto">
-                    <div class="text-center mb-12"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Powerful Features</h2><p class="text-gray-400 text-sm">Everything you need to automate your marketing</p></div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        <div class="card-glass p-5 rounded-2xl"><div class="w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center mb-3"><i class="fas fa-shield-haltered text-lg text-amber-500"></i></div><h3 class="font-bold mb-1">Anti-Ban Protection</h3><p class="text-gray-400 text-xs">Advanced algorithms that mimic human behavior.</p></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mb-3"><i class="fas fa-globe text-lg text-blue-500"></i></div><h3 class="font-bold mb-1">Multi-Language</h3><p class="text-gray-400 text-xs">Automate messages in 50+ languages.</p></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mb-3"><i class="fas fa-chart-line text-lg text-green-500"></i></div><h3 class="font-bold mb-1">Advanced Analytics</h3><p class="text-gray-400 text-xs">Real-time dashboards for your campaigns.</p></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-3"><i class="fas fa-robot text-lg text-purple-500"></i></div><h3 class="font-bold mb-1">Smart Automation</h3><p class="text-gray-400 text-xs">Complex workflows with visual builder.</p></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="w-10 h-10 bg-pink-500/10 rounded-lg flex items-center justify-center mb-3"><i class="fas fa-lock text-lg text-pink-500"></i></div><h3 class="font-bold mb-1">HWID Security</h3><p class="text-gray-400 text-xs">Hardware-locked licenses.</p></div>
-                        <div class="card-glass p-5 rounded-2xl"><div class="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center mb-3"><i class="fas fa-headset text-lg text-orange-500"></i></div><h3 class="font-bold mb-1">24/7 Support</h3><p class="text-gray-400 text-xs">Direct access via Telegram.</p></div>
+            <section class="py-12 px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-10"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Powerful Features</h2><p class="text-gray-400 text-sm">Everything you need to automate your marketing</p></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="10"><div class="w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center mb-2"><i class="fas fa-shield-haltered text-lg text-amber-500"></i></div><h3 class="font-bold text-sm mb-1">Anti-Ban Protection</h3><p class="text-gray-400 text-xs">Advanced algorithms that mimic human behavior to keep your accounts safe.</p></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="10"><div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mb-2"><i class="fas fa-globe text-lg text-blue-500"></i></div><h3 class="font-bold text-sm mb-1">Multi-Language Support</h3><p class="text-gray-400 text-xs">Automate messages in 50+ languages with native-level quality.</p></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="10"><div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mb-2"><i class="fas fa-chart-line text-lg text-green-500"></i></div><h3 class="font-bold text-sm mb-1">Advanced Analytics</h3><p class="text-gray-400 text-xs">Real-time dashboards to track your campaign performance.</p></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="10"><div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-2"><i class="fas fa-robot text-lg text-purple-500"></i></div><h3 class="font-bold text-sm mb-1">Smart Automation</h3><p class="text-gray-400 text-xs">Set up complex workflows with our intuitive visual builder.</p></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="10"><div class="w-10 h-10 bg-pink-500/10 rounded-lg flex items-center justify-center mb-2"><i class="fas fa-lock text-lg text-pink-500"></i></div><h3 class="font-bold text-sm mb-1">HWID Security</h3><p class="text-gray-400 text-xs">Hardware-locked licenses to prevent unauthorized usage.</p></div>
+                        <div class="card-glass p-4 rounded-2xl" data-tilt data-tilt-max="10"><div class="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center mb-2"><i class="fas fa-headset text-lg text-orange-500"></i></div><h3 class="font-bold text-sm mb-1">24/7 Premium Support</h3><p class="text-gray-400 text-xs">Direct access to our expert team via Telegram.</p></div>
                     </div>
                 </div>
             </section>
@@ -340,16 +387,16 @@
 
         <!-- ===== TAB: GALLERY ===== -->
         <div id="tab-gallery" class="tab-content">
-            <section class="py-14 px-6">
-                <div class="max-w-5xl mx-auto">
-                    <div class="text-center mb-10"><h2 class="text-3xl font-black mb-2 gold-text uppercase">See It In Action</h2><p class="text-gray-400 text-sm">Explore the intuitive interface</p></div>
+            <section class="py-12 px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8"><h2 class="text-3xl font-black mb-2 gold-text uppercase">See It In Action</h2><p class="text-gray-400 text-sm">Click any image to enlarge</p></div>
                     <div class="swiper gallerySwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl"><img src="images/screenshots/Screenshot1.jpg" alt="Main" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Main Dashboard</p></div></div>
-                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl"><img src="images/screenshots/Screenshot2.jpg" alt="Setup" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Configuration</p></div></div>
-                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl"><img src="images/screenshots/Screenshot3.jpg" alt="Analytics" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Analytics</p></div></div>
-                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl"><img src="images/screenshots/Screenshot4.jpg" alt="Stats" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Statistics</p></div></div>
-                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl"><img src="images/screenshots/Screenshot5.jpg" alt="Settings" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Settings</p></div></div>
+                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl cursor-pointer" onclick="openLightbox('images/screenshots/Screenshot1.jpg')" data-tilt data-tilt-max="5"><img src="images/screenshots/Screenshot1.jpg" alt="Main" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Main Dashboard</p></div></div>
+                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl cursor-pointer" onclick="openLightbox('images/screenshots/Screenshot2.jpg')" data-tilt data-tilt-max="5"><img src="images/screenshots/Screenshot2.jpg" alt="Setup" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Configuration</p></div></div>
+                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl cursor-pointer" onclick="openLightbox('images/screenshots/Screenshot3.jpg')" data-tilt data-tilt-max="5"><img src="images/screenshots/Screenshot3.jpg" alt="Analytics" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Analytics</p></div></div>
+                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl cursor-pointer" onclick="openLightbox('images/screenshots/Screenshot4.jpg')" data-tilt data-tilt-max="5"><img src="images/screenshots/Screenshot4.jpg" alt="Stats" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Statistics</p></div></div>
+                            <div class="swiper-slide"><div class="card-glass p-2 rounded-2xl cursor-pointer" onclick="openLightbox('images/screenshots/Screenshot5.jpg')" data-tilt data-tilt-max="5"><img src="images/screenshots/Screenshot5.jpg" alt="Settings" class="w-full rounded-xl" onerror="this.src='Captura.PNG'"><p class="text-center mt-2 text-xs text-gray-400">Settings</p></div></div>
                         </div>
                         <div class="swiper-pagination mt-4"></div>
                         <div class="swiper-button-next"></div>
@@ -359,16 +406,31 @@
             </section>
         </div>
 
-        <!-- ===== TAB: UPDATES ===== -->
+        <!-- ===== TAB: UPDATES (CON FILTROS) ===== -->
         <div id="tab-updates" class="tab-content">
-            <section class="py-14 px-6">
+            <section class="py-12 px-6">
                 <div class="max-w-2xl mx-auto">
-                    <div class="text-center mb-10"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Latest Updates</h2><p class="text-gray-400 text-sm">Stay up to date with Blaster Bot PRO</p></div>
+                    <div class="text-center mb-8"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Changelog</h2><p class="text-gray-400 text-sm">Filter by version type</p></div>
+                    
+                    <!-- Filtros -->
+                    <div class="flex justify-center gap-2 mb-6 flex-wrap">
+                        <button onclick="filterUpdates('all')" class="filter-btn active px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-amber-500/20 text-amber-500 border border-amber-500/30">All</button>
+                        <button onclick="filterUpdates('new')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-green-500/50">New</button>
+                        <button onclick="filterUpdates('major')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-blue-500/50">Major</button>
+                        <button onclick="filterUpdates('initial')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-gray-500/50">Initial</button>
+                        <button onclick="filterUpdates('upcoming')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-amber-500/50">Upcoming</button>
+                    </div>
+
                     <div class="space-y-4">
-                        <div class="card-glass p-4 rounded-2xl border-l-4 border-green-500"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">NEW</span><span class="text-xs text-amber-500 font-bold">Mayo 2026</span></div><h3 class="font-bold mb-2">🆕 Version 4.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Interfaz rediseñada</li><li>• Galería interactiva</li><li>• Estadísticas mejoradas</li></ul></div>
-                        <div class="card-glass p-4 rounded-2xl border-l-4 border-blue-500"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span><span class="text-xs text-amber-500 font-bold">Abril 2026</span></div><h3 class="font-bold mb-2">🚀 Version 3.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Anti-Ban con IA</li><li>• Panel estadísticas</li><li>• 50+ idiomas</li></ul></div>
-                        <div class="card-glass p-4 rounded-2xl border-l-4 border-gray-500"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-slate-700 text-gray-400 px-2 py-0.5 rounded-full font-bold">INITIAL</span><span class="text-xs text-gray-500 font-bold">Marzo 2026</span></div><h3 class="font-bold mb-2">🔧 Version 2.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Lanzamiento oficial</li><li>• Automatización básica</li></ul></div>
-                        <div class="card-glass p-4 rounded-2xl border-dashed border-amber-500/30 border-l-4"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full font-bold">PRÓXIMO</span><span class="text-xs text-amber-500 font-bold">Junio 2026</span></div><h3 class="font-bold mb-2">🔮 Version 5.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Telegram API</li><li>• Campañas avanzadas</li><li>• Reportes PDF</li></ul></div>
+                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-green-500" data-type="new"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">NEW</span><span class="text-xs text-amber-500 font-bold">Mayo 2026 - v4.0</span></div><h3 class="font-bold mb-2">🆕 Major Interface Redesign</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Interfaz completamente rediseñada con sidebar</li><li>• Nuevo sistema de galería interactiva con lightbox</li><li>• Estadísticas en tiempo real mejoradas</li><li>• Corrección de errores y optimización de rendimiento</li></ul></div>
+                        
+                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-blue-500" data-type="major"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span><span class="text-xs text-amber-500 font-bold">Abril 2026 - v3.0</span></div><h3 class="font-bold mb-2">🚀 Anti-Ban System 3.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Sistema Anti-Ban con IA mejorada y machine learning</li><li>• Panel de estadísticas y analíticas en tiempo real</li><li>• Soporte para 50+ idiomas con detección automática</li><li>• Sistema de licencias HWID vinculante</li></ul></div>
+                        
+                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-gray-500" data-type="initial"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-slate-700 text-gray-400 px-
+
+2 py-0.5 rounded-full font-bold">INITIAL</span><span class="text-xs text-gray-500 font-bold">Marzo 2026 - v2.0</span></div><h3 class="font-bold mb-2">🔧 Official Launch</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Lanzamiento oficial de Blaster Bot PRO</li><li>• Automatización básica de mensajes multicanal</li><li>• Sistema de verificación de licencias integrado</li></ul></div>
+                        
+                        <div class="update-item card-glass p-4 rounded-2xl border-dashed border-amber-500/30 border-l-4" data-type="upcoming"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full font-bold">PRÓXIMO</span><span class="text-xs text-amber-500 font-bold">Junio 2026 - v5.0</span></div><h3 class="font-bold mb-2">🔮 Upcoming Features</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Integración completa con Telegram Bot API</li><li>• Programación de campañas avanzadas con calendario</li><li>• Exportación de reportes en PDF y Excel</li><li>• Sistema de auto-responder inteligente</li></ul></div>
                     </div>
                 </div>
             </section>
@@ -376,9 +438,9 @@
 
         <!-- ===== TAB: COMPARE ===== -->
         <div id="tab-compare" class="tab-content">
-            <section class="py-14 px-6">
+            <section class="py-12 px-6">
                 <div class="max-w-4xl mx-auto">
-                    <div class="text-center mb-10"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Compare Plans</h2><p class="text-gray-400 text-sm">Find the perfect plan for your needs</p></div>
+                    <div class="text-center mb-8"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Compare Plans</h2><p class="text-gray-400 text-sm">Find the perfect plan for your needs</p></div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-xs">
                             <thead><tr class="border-b border-amber-500/20"><th class="p-3 text-left text-gray-400 uppercase">Feature</th><th class="p-3 text-center font-bold">Monthly</th><th class="p-3 text-center font-bold">Quarterly</th><th class="p-3 text-center text-amber-500 font-bold bg-amber-500/5 rounded-t-xl">Semi-Annual</th><th class="p-3 text-center font-bold">Annual</th><th class="p-3 text-center font-bold"><i class="fa-solid fa-crown text-amber-500 mr-1"></i>Lifetime</th></tr></thead>
@@ -387,7 +449,8 @@
                                 <tr class="border-b border-white/5"><td class="p-3 text-gray-400">Automation</td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400 bg-amber-500/5"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td></tr>
                                 <tr class="border-b border-white/5"><td class="p-3 text-gray-400">Anti-Ban</td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400 bg-amber-500/5"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td></tr>
                                 <tr class="border-b border-white/5"><td class="p-3 text-gray-400">Multi-Language</td><td class="p-3 text-center text-red-400"><i class="fas fa-times"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400 bg-amber-500/5"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td></tr>
-                                <tr><td class="p-3 text-gray-400">Updates</td><td class="p-3 text-center">1 mo</td><td class="p-3 text-center">3 mo</td><td class="p-3 text-center text-amber-500 font-bold bg-amber-500/5">6 mo</td><td class="p-3 text-center">12 mo</td><td class="p-3 text-center font-bold">Forever</td></tr>
+                                <tr class="border-b border-white/5"><td class="p-3 text-gray-400">Analytics</td><td class="p-3 text-center text-red-400"><i class="fas fa-times"></i></td><td class="p-3 text-center text-red-400"><i class="fas fa-times"></i></td><td class="p-3 text-center text-green-400 bg-amber-500/5"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td><td class="p-3 text-center text-green-400"><i class="fas fa-check"></i></td></tr>
+                                <tr><td class="p-3 text-gray-400">Updates</td><td class="p-3 text-center">1 month</td><td class="p-3 text-center">3 months</td><td class="p-3 text-center text-amber-500 font-bold bg-amber-500/5">6 months</td><td class="p-3 text-center">12 months</td><td class="p-3 text-center font-bold">Forever</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -397,35 +460,35 @@
 
         <!-- ===== TAB: PRICING ===== -->
         <div id="tab-pricing" class="tab-content">
-            <section class="py-14 px-6">
-                <div class="max-w-6xl mx-auto">
-                    <div class="text-center mb-10"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Choose Your Plan</h2><p class="text-gray-400 text-sm">Scale your business with the right plan</p></div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-12">
-                        <div class="plan-card card-glass p-4 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', 'Monthly', 'https://nowpayments.io/payment/?iid=5178766239')"><h3 class="font-bold text-sm mb-1">Monthly</h3><div class="text-xl font-black mb-2">$19.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
-                        <div class="plan-card card-glass p-4 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', 'Quarterly', 'https://nowpayments.io/payment/?iid=4836685273')"><h3 class="font-bold text-sm mb-1">Quarterly</h3><div class="text-xl font-black mb-2">$34.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
-                        <div class="plan-card card-glass p-4 rounded-2xl cursor-pointer flex flex-col justify-between relative border-amber-500/40" onclick="selectPlan(this, '54.99', 'Semi-Annual', 'https://nowpayments.io/payment/?iid=4815032598')"><div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[8px] font-black px-2 py-0.5 rounded-full uppercase">Popular</div><h3 class="font-bold text-sm mb-1 text-amber-500">Semi-Annual</h3><div class="text-xl font-black mb-2">$54.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
-                        <div class="plan-card card-glass p-4 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '89.99', 'Annual', 'https://nowpayments.io/payment/?iid=5548518926')"><h3 class="font-bold text-sm mb-1">Annual</h3><div class="text-xl font-black mb-2">$89.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
-                        <div class="plan-card card-glass p-4 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '149.99', 'Lifetime', 'https://nowpayments.io/payment/?iid=5431076590')"><h3 class="font-bold text-sm mb-1 text-amber-500"><i class="fa-solid fa-crown mr-1"></i> Lifetime</h3><div class="text-xl font-black mb-2">$149.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
+            <section class="py-12 px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-8"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Choose Your Plan</h2><p class="text-gray-400 text-sm">Scale your business with the right plan</p></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
+                        <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', 'Monthly', 'https://nowpayments.io/payment/?iid=5178766239')" data-tilt data-tilt-max="8"><h3 class="font-bold text-xs mb-1">Monthly</h3><div class="text-lg font-black mb-2">$19.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
+                        <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', 'Quarterly', 'https://nowpayments.io/payment/?iid=4836685273')" data-tilt data-tilt-max="8"><h3 class="font-bold text-xs mb-1">Quarterly</h3><div class="text-lg font-black mb-2">$34.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
+                        <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between relative border-amber-500/40" onclick="selectPlan(this, '54.99', 'Semi-Annual', 'https://nowpayments.io/payment/?iid=4815032598')" data-tilt data-tilt-max="8"><div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[7px] font-black px-2 py-0.5 rounded-full uppercase">Popular</div><h3 class="font-bold text-xs mb-1 text-amber-500">Semi-Annual</h3><div class="text-lg font-black mb-2">$54.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
+                        <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '89.99', 'Annual', 'https://nowpayments.io/payment/?iid=5548518926')" data-tilt data-tilt-max="8"><h3 class="font-bold text-xs mb-1">Annual</h3><div class="text-lg font-black mb-2">$89.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
+                        <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '149.99', 'Lifetime', 'https://nowpayments.io/payment/?iid=5431076590')" data-tilt data-tilt-max="8"><h3 class="font-bold text-xs mb-1 text-amber-500"><i class="fa-solid fa-crown mr-1"></i> Lifetime</h3><div class="text-lg font-black mb-2">$149.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
                     </div>
 
-                    <div id="checkout" class="max-w-3xl mx-auto p-6 card-glass rounded-3xl border-2 border-slate-800 shadow-2xl relative">
-                        <div id="empty-state" class="text-center py-8"><div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-mouse-pointer text-lg text-slate-600"></i></div><p class="text-slate-500 font-black uppercase tracking-[0.3em] text-xs">Choose a plan to reveal payment methods</p></div>
+                    <div id="checkout" class="max-w-3xl mx-auto p-5 card-glass rounded-3xl border-2 border-slate-800 shadow-2xl relative">
+                        <div id="empty-state" class="text-center py-6"><div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fas fa-mouse-pointer text-base text-slate-600"></i></div><p class="text-slate-500 font-black uppercase tracking-[0.3em] text-xs">Choose a plan to reveal payment methods</p></div>
                         <div id="payment-selection" class="hidden animate-fade-in">
-                            <div class="text-center mb-6"><h4 class="text-base font-bold uppercase">Selected Plan: <span id="selected-plan-name" class="gold-text">---</span></h4></div>
-                            <div class="flex gap-3 justify-center mb-6">
-                                <button id="btn-binance" onclick="toggleMethod('binance')" class="method-btn bg-black/40 px-5 py-3 rounded-2xl flex-1 flex items-center justify-center gap-2 font-black uppercase text-xs transition"><i class="fa-solid fa-qrcode text-amber-500"></i> Binance</button>
-                                <button id="btn-global" onclick="toggleMethod('global')" class="method-btn bg-black/40 px-5 py-3 rounded-2xl flex-1 flex items-center justify-center gap-2 font-black uppercase text-xs transition"><i class="fa-solid fa-credit-card text-blue-500"></i> Card/Crypto</button>
+                            <div class="text-center mb-5"><h4 class="text-sm font-bold uppercase">Selected Plan: <span id="selected-plan-name" class="gold-text">---</span></h4></div>
+                            <div class="flex gap-2 justify-center mb-5">
+                                <button id="btn-binance" onclick="toggleMethod('binance')" class="method-btn bg-black/40 px-4 py-2.5 rounded-2xl flex-1 flex items-center justify-center gap-2 font-black uppercase text-xs transition"><i class="fa-solid fa-qrcode text-amber-500"></i> Binance</button>
+                                <button id="btn-global" onclick="toggleMethod('global')" class="method-btn bg-black/40 px-4 py-2.5 rounded-2xl flex-1 flex items-center justify-center gap-2 font-black uppercase text-xs transition"><i class="fa-solid fa-credit-card text-blue-500"></i> Card/Crypto</button>
                             </div>
-                            <div id="block-binance" class="hidden animate-fade-in bg-black/30 p-5 rounded-3xl border border-amber-500/20 mb-6">
-                                <div class="flex gap-6 items-center justify-center"><div class="w-28 h-28 bg-white rounded-2xl p-1"><img src="image.png" alt="QR" class="w-full h-full object-contain"></div><div><p class="text-amber-500 font-black text-xs uppercase mb-2">Binance Pay</p><p class="text-[9px] text-gray-500 uppercase mb-1">Pay ID:</p><div class="flex items-center gap-2 bg-black p-2 rounded-lg"><code class="text-amber-400 font-mono text-lg tracking-[0.1em]">131264331</code><button onclick="copyToClipboard('131264331')" class="bg-slate-800 p-1.5 rounded text-xs"><i class="fa-solid fa-copy"></i></button></div></div></div>
+                            <div id="block-binance" class="hidden animate-fade-in bg-black/30 p-4 rounded-3xl border border-amber-500/20 mb-5">
+                                <div class="flex gap-5 items-center justify-center"><div class="w-24 h-24 bg-white rounded-2xl p-1"><img src="image.png" alt="QR" class="w-full h-full object-contain"></div><div><p class="text-amber-500 font-black text-xs uppercase mb-2">Binance Pay</p><p class="text-[8px] text-gray-500 uppercase mb-1">Pay ID:</p><div class="flex items-center gap-2 bg-black p-2 rounded-lg"><code class="text-amber-400 font-mono text-base tracking-[0.1em]">131264331</code><button onclick="copyToClipboard('131264331')" class="bg-slate-800 p-1.5 rounded text-xs"><i class="fa-solid fa-copy"></i></button></div></div></div>
                             </div>
-                            <div id="block-global" class="hidden animate-fade-in bg-black/30 p-5 rounded-3xl border border-blue-500/20 mb-6">
-                                <div class="space-y-3">
+                            <div id="block-global" class="hidden animate-fade-in bg-black/30 p-4 rounded-3xl border border-blue-500/20 mb-5">
+                                <div class="space-y-2">
                                     <button onclick="payWithNowPayments()" class="w-full gold-gradient text-black font-black py-3 rounded-xl uppercase text-xs"><i class="fa-brands fa-bitcoin mr-2"></i> Pay with NOWPayments</button>
                                     <button onclick="window.open('https://switchere.com/exchange/buy-tether-trc20','_blank')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl uppercase text-xs"><i class="fa-solid fa-credit-card mr-2"></i> Buy with Card</button>
                                 </div>
                             </div>
-                            <div class="text-center pt-4 border-t border-white/5"><p class="text-gray-500 text-[9px] uppercase font-bold mb-2">Confirmation required:</p><a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-10 bg-[#229ED9] text-white py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform shadow-lg uppercase"><i class="fa-brands fa-telegram mr-1"></i> Send Proof</a></div>
+                            <div class="text-center pt-3 border-t border-white/5"><p class="text-gray-500 text-[8px] uppercase font-bold mb-2">Confirmation required:</p><a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-8 bg-[#229ED9] text-white py-2.5 rounded-2xl font-black text-xs hover:scale-105 transition-transform shadow-lg uppercase"><i class="fa-brands fa-telegram mr-1"></i> Send Proof</a></div>
                         </div>
                     </div>
                 </div>
@@ -434,22 +497,22 @@
 
         <!-- ===== TAB: VALIDATOR ===== -->
         <div id="tab-validator" class="tab-content">
-            <section class="py-14 px-6">
-                <div class="max-w-2xl mx-auto">
+            <section class="py-12 px-6">
+                <div class="max-w-lg mx-auto">
                     <div class="card-glass p-6 rounded-3xl border-2 border-amber-500/20 text-center shadow-2xl">
                         <h2 class="text-2xl font-black mb-1 uppercase">License <span class="gold-text">Validator</span></h2>
-                        <p class="text-gray-500 mb-5 text-sm">Verify your activation key instantly</p>
-                        <div class="flex flex-col gap-3 items-center bg-black/40 p-4 rounded-2xl border border-slate-800">
-                            <div class="flex flex-col md:flex-row w-full gap-3">
-                                <input type="text" id="web-key-input" placeholder="Paste your activation key here..." class="bg-transparent text-white p-3 rounded-xl w-full md:flex-1 focus:outline-none focus:border-amber-500 border border-transparent text-center md:text-left font-mono text-sm transition">
-                                <button id="verify-btn" onclick="checkLicenseWeb()" class="bg-slate-700 text-gray-400 font-black py-3 px-6 rounded-xl transition-all uppercase text-xs cursor-not-allowed" disabled>Verify</button>
+                        <p class="text-gray-500 mb-4 text-sm">Verify your activation key instantly</p>
+                        <div class="flex flex-col gap-2 items-center bg-black/40 p-3 rounded-2xl border border-slate-800">
+                            <div class="flex flex-col md:flex-row w-full gap-2">
+                                <input type="text" id="web-key-input" placeholder="Paste your activation key here..." class="bg-transparent text-white p-2.5 rounded-xl w-full md:flex-1 focus:outline-none focus:border-amber-500 border border-transparent text-center md:text-left font-mono text-sm transition">
+                                <button id="verify-btn" onclick="checkLicenseWeb()" class="bg-slate-700 text-gray-400 font-black py-2.5 px-5 rounded-xl transition-all uppercase text-xs cursor-not-allowed" disabled>Verify</button>
                             </div>
                             <div class="cf-turnstile" data-sitekey="0x4AAAAAADD5urBmaR_v4TrL" data-theme="dark" data-callback="enableVerifyBtn"></div>
                         </div>
-                        <div id="license-result" class="mt-6 hidden animate-fade-in-up text-center"><div id="result-box" class="p-5 rounded-2xl border-2 bg-black/30 inline-block min-w-[250px]"><div id="result-icon" class="text-3xl mb-2"></div><p id="result-status" class="text-lg font-black mb-1 uppercase"></p><p id="result-exp" class="text-gray-300 text-sm"></p></div></div>
-                        <div class="mt-6 pt-4 border-t border-white/5">
-                            <div id="download-locked"><div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-lock text-xl text-slate-500"></i></div><h3 class="text-lg font-bold mb-1 uppercase text-slate-400">Software Download</h3><p class="text-slate-500 mb-3 text-xs uppercase">Valid license required</p><div class="inline-block bg-slate-800 text-slate-600 font-black py-2 px-6 rounded-xl uppercase text-xs cursor-not-allowed"><i class="fa-solid fa-ban mr-1"></i> Locked</div></div>
-                            <div id="download-unlocked" class="hidden animate-fade-in-up"><div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-cloud-arrow-down text-xl text-green-500"></i></div><h3 class="text-lg font-bold mb-1 uppercase">Download Authorized</h3><p class="text-green-400 mb-3 text-xs uppercase">Secure connection</p><a href="#" id="secure-download-link" target="_blank" class="inline-block bg-green-500 hover:bg-green-400 text-black font-black py-2 px-6 rounded-xl hover:scale-105 transition-transform shadow-lg uppercase text-xs"><i class="fa-brands fa-windows mr-1"></i> Download</a></div>
+                        <div id="license-result" class="mt-5 hidden animate-fade-in-up text-center"><div id="result-box" class="p-4 rounded-2xl border-2 bg-black/30 inline-block min-w-[200px]"><div id="result-icon" class="text-2xl mb-2"></div><p id="result-status" class="text-base font-black mb-1 uppercase"></p><p id="result-exp" class="text-gray-300 text-sm"></p></div></div>
+                        <div class="mt-5 pt-3 border-t border-white/5">
+                            <div id="download-locked"><div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-lock text-lg text-slate-500"></i></div><h3 class="text-base font-bold mb-1 uppercase text-slate-400">Software Download</h3><p class="text-slate-500 mb-2 text-xs uppercase">Valid license required</p><div class="inline-block bg-slate-800 text-slate-600 font-black py-2 px-5 rounded-xl uppercase text-xs cursor-not-allowed"><i class="fa-solid fa-ban mr-1"></i> Locked</div></div>
+                            <div id="download-unlocked" class="hidden animate-fade-in-up"><div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-cloud-arrow-down text-lg text-green-500"></i></div><h3 class="text-base font-bold mb-1 uppercase">Download Authorized</h3><p class="text-green-400 mb-2 text-xs uppercase">Secure connection</p><a href="#" id="secure-download-link" target="_blank" class="inline-block bg-green-500 hover:bg-green-400 text-black font-black py-2 px-5 rounded-xl hover:scale-105 transition-transform shadow-lg uppercase text-xs"><i class="fa-brands fa-windows mr-1"></i> Download</a></div>
                         </div>
                     </div>
                 </div>
@@ -462,10 +525,32 @@
     <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 z-50 w-10 h-10 gold-gradient text-black rounded-full shadow-lg flex items-center justify-center text-lg font-bold"><i class="fas fa-arrow-up"></i></button>
     <a href="https://t.me/spbot247" target="_blank" class="fixed bottom-20 right-6 z-50 w-10 h-10 bg-[#229ED9] text-white rounded-full shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"><i class="fa-brands fa-telegram"></i></a>
 
-    <!-- Toast -->
-    <div id="sale-toast" class="toast-notification hidden"><div class="card-glass p-3 rounded-2xl border border-green-500/30 flex items-center gap-2"><span class="text-base">🔔</span><div class="flex-1"><p id="sale-toast-text" class="text-xs text-gray-300"></p><p class="text-[9px] text-green-400 mt-0.5">Hace unos segundos</p></div><button onclick="document.getElementById('sale-toast').classList.add('hidden')" class="text-gray-500 hover:text-white text-sm"><i class="fas fa-times"></i></button></div></div>
+    <!-- Toast notificación -->
+    <div id="sale-toast" class="toast-notification hidden"><div class="card-glass p-3 rounded-2xl border border-green-500/30 flex items-center gap-2"><span class="text-base">🔔</span><div class="flex-1"><p id="sale-toast-text" class="text-xs text-gray-300"></p><p class="text-[8px] text-green-400 mt-0.5">Hace unos segundos</p></div><button onclick="document.getElementById('sale-toast').classList.add('hidden')" class="text-gray-500 hover:text-white text-sm"><i class="fas fa-times"></i></button></div></div>
 
     <script>
+        // ===== PRELOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 800);
+        });
+
+        // ===== LIGHTBOX =====
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        // ===== MATRIX =====
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -476,11 +561,11 @@
         setInterval(drawMatrix,33);
         window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 
-        // SIDEBAR
+        // ===== SIDEBAR =====
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('mobile-open'); document.getElementById('sidebar-overlay').classList.toggle('hidden'); }
         function closeSidebar() { document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('sidebar-overlay').classList.add('hidden'); }
 
-        // PESTAÑAS
+        // ===== PESTAÑAS =====
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
             document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b=>b.classList.remove('active'));
@@ -491,35 +576,80 @@
             window.scrollTo({top:0,behavior:'smooth'});
             if (window.innerWidth<768) closeSidebar();
             if (tabName==='gallery') initSwiper();
+            if (tabName==='updates') { document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); document.querySelector('.filter-btn').classList.add('active'); filterUpdates('all'); }
         }
 
+        // ===== SWIPER =====
         let swiper;
         function initSwiper() { if(swiper) swiper.destroy(); setTimeout(()=>{ swiper=new Swiper('.gallerySwiper',{slidesPerView:1,spaceBetween:15,loop:true,autoplay:{delay:3000,disableOnInteraction:false},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},breakpoints:{768:{slidesPerView:2}}}); },100); }
 
-        // BACK TO TOP
+        // ===== FILTRO DE UPDATES =====
+        function filterUpdates(type) {
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.update-item').forEach(item => {
+                if (type === 'all' || item.getAttribute('data-type') === type) {
+                    item.style.display = 'block';
+                    item.classList.add('animate-fade-in');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // ===== TILT 3D =====
+        document.addEventListener('DOMContentLoaded', () => {
+            VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+                max: 10,
+                speed: 400,
+                glare: true,
+                'max-glare': 0.2,
+            });
+        });
+        function reinitTilt() {
+            VanillaTilt.init(document.querySelectorAll('[data-tilt]:not([data-tilt-initialized])'), {
+                max: 10, speed: 400, glare: true, 'max-glare': 0.2,
+            });
+        }
+        const tiltObserver = new MutationObserver(() => reinitTilt());
+        tiltObserver.observe(document.body, { childList: true, subtree: true });
+
+        // ===== BACK TO TOP =====
         window.addEventListener('scroll',()=>{const b=document.getElementById('back-to-top');b.classList.toggle('show',window.scrollY>400);});
 
-        // THEME
+        // ===== THEME =====
         function toggleTheme() { document.body.classList.toggle('light-mode'); const i=document.querySelector('#theme-label'); i.textContent=document.body.classList.contains('light-mode')?'Dark Mode':'Light Mode'; }
 
-        // COUNTDOWN
+        // ===== COUNTDOWN =====
         (function(){let h=2,m=15,s=30;const he=document.getElementById('countdown-hours'),me=document.getElementById('countdown-minutes'),se=document.getElementById('countdown-seconds');if(!he||!me||!se)return;setInterval(()=>{s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0){h=0;m=0;s=0;}he.textContent=h.toString().padStart(2,'0');me.textContent=m.toString().padStart(2,'0');se.textContent=s.toString().padStart(2,'0');},1000);})();
 
-        // TOAST
-        const buyers=[{name:'Carlos M.',plan:'Plan Lifetime',country:'México'},{name:'Andrea R.',plan:'Plan Semi-Annual',country:'España'},{name:'Miguel D.',plan:'Plan Annual',country:'Colombia'},{name:'Sofía L.',plan:'Plan Lifetime',country:'Argentina'}];
+        // ===== TOAST NOTIFICACIONES =====
+        const buyers=[{name:'Carlos M.',plan:'Plan Lifetime',country:'México'},{name:'Andrea R.',plan:'Plan Semi-Annual',country:'España'},{name:'Miguel D.',plan:'Plan Annual',country:'Colombia'},{name:'Sofía L.',plan:'Plan Lifetime',country:'Argentina'},{name:'Diego P.',plan:'Plan Quarterly',country:'Chile'}];
         function showSaleNotification(){const b=buyers[Math.floor(Math.random()*buyers.length)];const t=document.getElementById('sale-toast'),x=document.getElementById('sale-toast-text');if(!t||!x)return;x.textContent=`${b.name} compró ${b.plan} (${b.country})`;t.classList.remove('hidden');t.classList.add('animate-slide-in');t.classList.remove('animate-slide-out');setTimeout(()=>{t.classList.add('animate-slide-out');t.classList.remove('animate-slide-in');setTimeout(()=>t.classList.add('hidden'),400);},4000);}
         setTimeout(()=>showSaleNotification(),10000);setInterval(()=>{setTimeout(()=>showSaleNotification(),Math.random()*30000+30000);},60000);
 
-        // STATS
+        // ===== CONTADOR DE VISITANTES =====
+        function updateVisitorCount() {
+            const count = Math.floor(Math.random() * 30) + 5;
+            document.getElementById('visitor-count').textContent = count;
+        }
+        updateVisitorCount();
+        setInterval(updateVisitorCount, 15000);
+
+        // ===== STATS ANIMADOS =====
         function animateStats(){const s=document.querySelectorAll('.stat-number[data-target]');const o=new IntersectionObserver((e)=>{e.forEach(e=>{if(e.isIntersecting){const t=parseInt(e.target.getAttribute('data-target'));let c=0;const i=t/50;const r=setInterval(()=>{c+=i;if(c>=t){e.target.textContent=t.toLocaleString();clearInterval(r);}else{e.target.textContent=Math.floor(c).toLocaleString();}},40);o.unobserve(e.target);}});},{threshold:0.5});s.forEach(s=>o.observe(s));}
         animateStats();
 
+        // ===== TURNSTILE =====
         function enableVerifyBtn(){const b=document.getElementById('verify-btn');b.disabled=false;b.classList.remove('bg-slate-700','text-gray-400','cursor-not-allowed');b.classList.add('gold-gradient','text-black','cursor-pointer');}
+
+        // ===== PAGOS =====
         let currentNowPaymentsLink="";
         function selectPlan(e,p,n,l){document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('card-selected'));e.classList.add('card-selected');document.getElementById('empty-state').classList.add('hidden');document.getElementById('payment-selection').classList.remove('hidden');document.getElementById('selected-plan-name').innerText=n;currentNowPaymentsLink=l;const m=`Hi Blaster! I want the *${n}* plan ($${p}). Here is my proof for the key:`;document.getElementById('telegram-verify-link').href=`https://t.me/spbot247?text=${encodeURIComponent(m)}`;document.getElementById('checkout').scrollIntoView({behavior:'smooth',block:'center'});}
         function payWithNowPayments(){if(currentNowPaymentsLink)window.open(currentNowPaymentsLink,'_blank');else alert("Por favor selecciona un plan primero.");}
         function toggleMethod(m){['binance','global'].forEach(m=>{document.getElementById(`block-${m}`).classList.add('hidden');document.getElementById(`btn-${m}`).classList.remove('method-active');});document.getElementById(`block-${m}`).classList.remove('hidden');document.getElementById(`btn-${m}`).classList.add('method-active');}
-        
+
+        // ===== LICENSE CHECKER =====
         async function checkLicenseWeb(){
             const k=document.getElementById('web-key-input').value.trim().toLowerCase();
             const r=document.getElementById('license-result'),s=document.getElementById('result-status'),i=document.getElementById('result-icon');
@@ -528,9 +658,9 @@
             try{
                 const R=await fetch(`${U}/rest/v1/licencias?key=eq.${k}&select=status,exp_date`,{headers:{"apikey":K,"Authorization":`Bearer ${K}`}});
                 const d=await R.json();
-                if(d&&d.length>0){const l=d[0];if(l.status.toLowerCase()==='active'){i.innerHTML='<i class="fas fa-check-circle text-green-500"></i>';s.innerText="AUTHORIZED";s.className="text-green-500 font-black text-lg uppercase";document.getElementById('result-exp').innerText=`Expires: ${l.exp_date}`;document.getElementById('download-locked').classList.add('hidden');document.getElementById('download-unlocked').classList.remove('hidden');document.getElementById('secure-download-link').href="https://drive.google.com/file/d/1Qg5Bb55Yz2msxlMZGEPgmyNBMX6TVMAD/view?usp=sharing";}
-                else{i.innerHTML='<i class="fas fa-times-circle text-red-500"></i>';s.innerText="SUSPENDED";s.className="text-red-500 font-black text-lg uppercase";bloquearDescarga();}}
-                else{i.innerHTML='<i class="fas fa-ban text-amber-500"></i>';s.innerText="INVALID KEY";s.className="text-amber-500 font-black text-lg uppercase";bloquearDescarga();}
+                if(d&&d.length>0){const l=d[0];if(l.status.toLowerCase()==='active'){i.innerHTML='<i class="fas fa-check-circle text-green-500"></i>';s.innerText="AUTHORIZED";s.className="text-green-500 font-black text-base uppercase";document.getElementById('result-exp').innerText=`Expires: ${l.exp_date}`;document.getElementById('download-locked').classList.add('hidden');document.getElementById('download-unlocked').classList.remove('hidden');document.getElementById('secure-download-link').href="https://drive.google.com/file/d/1Qg5Bb55Yz2msxlMZGEPgmyNBMX6TVMAD/view?usp=sharing";}
+                else{i.innerHTML='<i class="fas fa-times-circle text-red-500"></i>';s.innerText="SUSPENDED";s.className="text-red-500 font-black text-base uppercase";bloquearDescarga();}}
+                else{i.innerHTML='<i class="fas fa-ban text-amber-500"></i>';s.innerText="INVALID KEY";s.className="text-amber-500 font-black text-base uppercase";bloquearDescarga();}
             }catch(e){s.innerText="ERROR";bloquearDescarga();}
         }
         function bloquearDescarga(){document.getElementById('download-locked').classList.remove('hidden');document.getElementById('download-unlocked').classList.add('hidden');document.getElementById('secure-download-link').href="#";}
