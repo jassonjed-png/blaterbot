@@ -177,9 +177,7 @@
         }
 
         /* CAMPAÑA DE NOTIFICACIONES */
-        .notification-badge {
-            position: relative;
-        }
+        .notification-badge { position: relative; }
         .notification-count {
             position: absolute;
             top: -4px;
@@ -305,7 +303,7 @@
                 <div class="max-w-5xl mx-auto">
                     <div class="inline-block mb-4">
                         <span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-                            <i class="fas fa-bolt mr-1"></i>New Version 4.0 Available
+                            <i class="fas fa-bolt mr-1"></i>New Version 5.0 Available
                         </span>
                     </div>
                     <h1 class="text-4xl md:text-6xl font-extrabold mb-3 tracking-tighter uppercase">
@@ -323,7 +321,7 @@
                         <a href="https://t.me/+mgiSL9s0Sko4NGQx" target="_blank" class="bg-[#229ED9] text-white py-3 px-7 rounded-full hover:brightness-110 transition uppercase text-sm shadow-lg flex items-center gap-2"><i class="fa-brands fa-telegram"></i> Join Channel</a>
                     </div>
                     <div class="grid grid-cols-3 gap-5 max-w-lg mx-auto pt-8 border-t border-white/5">
-                        <div><div class="text-2xl font-black gold-text stat-number" data-target="10000">0</div><div class="text-xs text-gray-500 uppercase mt-1">Active Users</div></div>
+                        <div><div class="text-2xl font-black gold-text stat-number" data-target="129">0</div><div class="text-xs text-gray-500 uppercase mt-1">Active Users</div></div>
                         <div><div class="text-2xl font-black gold-text stat-number" data-target="150">0</div><div class="text-xs text-gray-500 uppercase mt-1">Countries</div></div>
                         <div><div class="text-2xl font-black gold-text">99.9<span class="text-base">%</span></div><div class="text-xs text-gray-500 uppercase mt-1">Uptime</div></div>
                     </div>
@@ -348,8 +346,8 @@
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-2xl font-black mb-6 text-center gold-text uppercase">Trusted Worldwide</h2>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="10000">0</div><p class="text-gray-400 text-xs uppercase">Active Licenses</p></div>
-                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="500000">0</div><p class="text-gray-400 text-xs uppercase">Messages Sent</p></div>
+                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="129">0</div><p class="text-gray-400 text-xs uppercase">Active Licenses</p></div>
+                        <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="500480">0</div><p class="text-gray-400 text-xs uppercase">Messages Sent</p></div>
                         <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text stat-number mb-1" data-target="150">0</div><p class="text-gray-400 text-xs uppercase">Countries</p></div>
                         <div class="card-glass p-4 rounded-2xl text-center" data-tilt data-tilt-max="8"><div class="text-xl font-black gold-text mb-1">24/7</div><p class="text-gray-400 text-xs uppercase">Support</p></div>
                     </div>
@@ -422,15 +420,55 @@
                     </div>
 
                     <div class="space-y-4">
-                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-green-500" data-type="new"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">NEW</span><span class="text-xs text-amber-500 font-bold">Mayo 2026 - v4.0</span></div><h3 class="font-bold mb-2">🆕 Major Interface Redesign</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Interfaz completamente rediseñada con sidebar</li><li>• Nuevo sistema de galería interactiva con lightbox</li><li>• Estadísticas en tiempo real mejoradas</li><li>• Corrección de errores y optimización de rendimiento</li></ul></div>
+                        <!-- v5.0 - NEW (Anti-Spam) -->
+                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-green-500" data-type="new">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">NEW</span>
+                                <span class="text-xs text-amber-500 font-bold">Junio 2026 - v5.0</span>
+                            </div>
+                            <h3 class="font-bold mb-2">🛡️ Anti-Spam Payment Shield</h3>
+                            <ul class="text-gray-400 text-xs space-y-1">
+                                <li>• Sistema de verificación anti‑spam para envío de pruebas de pago</li>
+                                <li>• Código de verificación único con expiración de 15 minutos</li>
+                                <li>• Rate limiting: máximo 3 intentos cada 30 minutos</li>
+                                <li>• Rediseño completo del checkout para máxima seguridad</li>
+                                <li>• Mejoras de rendimiento y corrección de errores menores</li>
+                            </ul>
+                        </div>
+
+                        <!-- v4.0 - MAJOR (se cambió de NEW a MAJOR) -->
+                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-blue-500" data-type="major">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span>
+                                <span class="text-xs text-amber-500 font-bold">Mayo 2026 - v4.0</span>
+                            </div>
+                            <h3 class="font-bold mb-2">🆕 Major Interface Redesign</h3>
+                            <ul class="text-gray-400 text-xs space-y-1">
+                                <li>• Interfaz completamente rediseñada con sidebar</li>
+                                <li>• Nuevo sistema de galería interactiva con lightbox</li>
+                                <li>• Estadísticas en tiempo real mejoradas</li>
+                                <li>• Corrección de errores y optimización de rendimiento</li>
+                            </ul>
+                        </div>
                         
                         <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-blue-500" data-type="major"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span><span class="text-xs text-amber-500 font-bold">Abril 2026 - v3.0</span></div><h3 class="font-bold mb-2">🚀 Anti-Ban System 3.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Sistema Anti-Ban con IA mejorada y machine learning</li><li>• Panel de estadísticas y analíticas en tiempo real</li><li>• Soporte para 50+ idiomas con detección automática</li><li>• Sistema de licencias HWID vinculante</li></ul></div>
                         
-                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-gray-500" data-type="initial"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-slate-700 text-gray-400 px-
-
-2 py-0.5 rounded-full font-bold">INITIAL</span><span class="text-xs text-gray-500 font-bold">Marzo 2026 - v2.0</span></div><h3 class="font-bold mb-2">🔧 Official Launch</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Lanzamiento oficial de Blaster Bot PRO</li><li>• Automatización básica de mensajes multicanal</li><li>• Sistema de verificación de licencias integrado</li></ul></div>
+                        <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-gray-500" data-type="initial"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-slate-700 text-gray-400 px-2 py-0.5 rounded-full font-bold">INITIAL</span><span class="text-xs text-gray-500 font-bold">Marzo 2026 - v2.0</span></div><h3 class="font-bold mb-2">🔧 Official Launch</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Lanzamiento oficial de Blaster Bot PRO</li><li>• Automatización básica de mensajes multicanal</li><li>• Sistema de verificación de licencias integrado</li></ul></div>
                         
-                        <div class="update-item card-glass p-4 rounded-2xl border-dashed border-amber-500/30 border-l-4" data-type="upcoming"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full font-bold">PRÓXIMO</span><span class="text-xs text-amber-500 font-bold">Junio 2026 - v5.0</span></div><h3 class="font-bold mb-2">🔮 Upcoming Features</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Integración completa con Telegram Bot API</li><li>• Programación de campañas avanzadas con calendario</li><li>• Exportación de reportes en PDF y Excel</li><li>• Sistema de auto-responder inteligente</li></ul></div>
+                        <!-- v6.0 - UPCOMING -->
+                        <div class="update-item card-glass p-4 rounded-2xl border-dashed border-amber-500/30 border-l-4" data-type="upcoming">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full font-bold">PRÓXIMO</span>
+                                <span class="text-xs text-amber-500 font-bold">????? 2026 - v6.0</span>
+                            </div>
+                            <h3 class="font-bold mb-2">🔮 Multi-Platform Automation</h3>
+                            <ul class="text-gray-400 text-xs space-y-1">
+                                <li>• Integración con Instagram (mensajes directos y auto‑respuesta)</li>
+                                <li>• Soporte inicial para WhatsApp Business API</li>
+                                <li>• Dashboard unificado para múltiples plataformas</li>
+                                <li>• Gestión avanzada de plantillas multimedia</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -473,6 +511,7 @@
 
                     <div id="checkout" class="max-w-3xl mx-auto p-5 card-glass rounded-3xl border-2 border-slate-800 shadow-2xl relative">
                         <div id="empty-state" class="text-center py-6"><div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fas fa-mouse-pointer text-base text-slate-600"></i></div><p class="text-slate-500 font-black uppercase tracking-[0.3em] text-xs">Choose a plan to reveal payment methods</p></div>
+                        
                         <div id="payment-selection" class="hidden animate-fade-in">
                             <div class="text-center mb-5"><h4 class="text-sm font-bold uppercase">Selected Plan: <span id="selected-plan-name" class="gold-text">---</span></h4></div>
                             <div class="flex gap-2 justify-center mb-5">
@@ -488,7 +527,56 @@
                                     <button onclick="window.open('https://switchere.com/exchange/buy-tether-trc20','_blank')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl uppercase text-xs"><i class="fa-solid fa-credit-card mr-2"></i> Buy with Card</button>
                                 </div>
                             </div>
-                            <div class="text-center pt-3 border-t border-white/5"><p class="text-gray-500 text-[8px] uppercase font-bold mb-2">Confirmation required:</p><a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-8 bg-[#229ED9] text-white py-2.5 rounded-2xl font-black text-xs hover:scale-105 transition-transform shadow-lg uppercase"><i class="fa-brands fa-telegram mr-1"></i> Send Proof</a></div>
+                            
+                            <!-- ===== NUEVO SISTEMA DE VERIFICACIÓN ANTI-SPAM ===== -->
+                            <div id="verification-section" class="text-center pt-4 border-t border-white/5">
+                                <p class="text-gray-500 text-[8px] uppercase font-bold mb-3 tracking-widest">Confirmation required (anti-spam):</p>
+                                
+                                <!-- Paso 1: Generar código -->
+                                <div id="verification-step" class="space-y-3">
+                                    <p class="text-[10px] text-gray-400">Para evitar spam, genera un código de verificación único:</p>
+                                    <button id="generate-code-btn" onclick="generateVerificationCode()" 
+                                            class="inline-block px-6 bg-amber-500/20 text-amber-500 border border-amber-500/30 py-2.5 rounded-2xl font-black text-xs hover:bg-amber-500/30 transition-all uppercase tracking-tighter">
+                                        <i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación
+                                    </button>
+                                    
+                                    <!-- Código generado -->
+                                    <div id="code-display" class="hidden animate-fade-in-up">
+                                        <div class="bg-black/50 p-3 rounded-2xl border border-green-500/30 inline-block">
+                                            <p class="text-[9px] text-gray-400 uppercase mb-1">Tu código de verificación:</p>
+                                            <div class="flex items-center gap-2 justify-center">
+                                                <code id="verification-code" class="text-green-400 font-mono text-xl font-bold tracking-[0.3em]"></code>
+                                                <button onclick="copyVerificationCode()" class="bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
+                                                    <i class="fa-solid fa-copy text-gray-400 hover:text-amber-500"></i>
+                                                </button>
+                                            </div>
+                                            <p class="text-[9px] text-red-400 mt-2 flex items-center justify-center gap-1">
+                                                <i class="fas fa-clock"></i> 
+                                                <span>Expira en: </span>
+                                                <span id="code-timer" class="font-bold">15:00</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Botón de Telegram (solo visible con código válido) -->
+                                    <div id="telegram-btn-container" class="hidden animate-fade-in-up mt-3">
+                                        <p class="text-[10px] text-green-400 mb-2">✅ Código verificado. Ahora puedes enviar tu comprobante:</p>
+                                        <a id="telegram-verify-link" href="#" target="_blank" 
+                                           class="inline-block px-10 bg-[#229ED9] text-white py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform shadow-lg uppercase tracking-tighter">
+                                            <i class="fa-brands fa-telegram mr-1"></i> Send Proof
+                                        </a>
+                                        <p class="text-[8px] text-gray-500 mt-1">Incluye el código generado en tu mensaje</p>
+                                    </div>
+                                    
+                                    <!-- Rate limit -->
+                                    <div id="rate-limit-msg" class="hidden animate-fade-in-up">
+                                        <p class="text-red-400 text-xs font-bold">
+                                            <i class="fas fa-exclamation-triangle mr-1"></i> 
+                                            Has excedido el límite de intentos. Espera <span id="rate-limit-time">30</span> minutos.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -643,11 +731,170 @@
         // ===== TURNSTILE =====
         function enableVerifyBtn(){const b=document.getElementById('verify-btn');b.disabled=false;b.classList.remove('bg-slate-700','text-gray-400','cursor-not-allowed');b.classList.add('gold-gradient','text-black','cursor-pointer');}
 
-        // ===== PAGOS =====
+        // ===== PAGOS (MODIFICADO - YA NO GENERA LINK AUTOMÁTICO) =====
         let currentNowPaymentsLink="";
-        function selectPlan(e,p,n,l){document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('card-selected'));e.classList.add('card-selected');document.getElementById('empty-state').classList.add('hidden');document.getElementById('payment-selection').classList.remove('hidden');document.getElementById('selected-plan-name').innerText=n;currentNowPaymentsLink=l;const m=`Hi Blaster! I want the *${n}* plan ($${p}). Here is my proof for the key:`;document.getElementById('telegram-verify-link').href=`https://t.me/spbot247?text=${encodeURIComponent(m)}`;document.getElementById('checkout').scrollIntoView({behavior:'smooth',block:'center'});}
+        function selectPlan(e,p,n,l){
+            document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('card-selected'));
+            e.classList.add('card-selected');
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('payment-selection').classList.remove('hidden');
+            document.getElementById('selected-plan-name').innerText=n;
+            currentNowPaymentsLink=l;
+            // YA NO generamos el enlace automáticamente - el usuario debe generar un código primero
+            resetVerification();
+            document.getElementById('checkout').scrollIntoView({behavior:'smooth',block:'center'});
+        }
         function payWithNowPayments(){if(currentNowPaymentsLink)window.open(currentNowPaymentsLink,'_blank');else alert("Por favor selecciona un plan primero.");}
         function toggleMethod(m){['binance','global'].forEach(m=>{document.getElementById(`block-${m}`).classList.add('hidden');document.getElementById(`btn-${m}`).classList.remove('method-active');});document.getElementById(`block-${m}`).classList.remove('hidden');document.getElementById(`btn-${m}`).classList.add('method-active');}
+
+        // ===== NUEVO SISTEMA ANTI-SPAM =====
+        let currentVerificationCode = null;
+        let codeExpirationTimer = null;
+        let verificationAttempts = 0;
+        let isRateLimited = false;
+        const MAX_ATTEMPTS = 3;
+        const RATE_LIMIT_MINUTES = 30;
+
+        // Gestión de intentos con localStorage
+        const attemptCache = {
+            get: () => {
+                try { return JSON.parse(localStorage.getItem('blaster_attempts') || '{"count":0,"timestamp":0}'); }
+                catch(e) { return {count:0, timestamp:0}; }
+            },
+            set: (data) => { localStorage.setItem('blaster_attempts', JSON.stringify(data)); },
+            reset: () => { localStorage.setItem('blaster_attempts', JSON.stringify({count:0, timestamp:0})); }
+        };
+
+        function checkRateLimit() {
+            const cache = attemptCache.get();
+            const now = Date.now();
+            const resetTime = RATE_LIMIT_MINUTES * 60 * 1000;
+            
+            if (now - cache.timestamp > resetTime) {
+                attemptCache.reset();
+                verificationAttempts = 0;
+                isRateLimited = false;
+                document.getElementById('rate-limit-msg').classList.add('hidden');
+                document.getElementById('generate-code-btn').disabled = false;
+                document.getElementById('generate-code-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+                return false;
+            }
+            
+            if (cache.count >= MAX_ATTEMPTS) {
+                isRateLimited = true;
+                const remainingMs = resetTime - (now - cache.timestamp);
+                const remainingMin = Math.ceil(remainingMs / 60000);
+                document.getElementById('rate-limit-time').textContent = remainingMin;
+                document.getElementById('rate-limit-msg').classList.remove('hidden');
+                document.getElementById('generate-code-btn').disabled = true;
+                document.getElementById('generate-code-btn').classList.add('opacity-50', 'cursor-not-allowed');
+                return true;
+            }
+            
+            verificationAttempts = cache.count;
+            return false;
+        }
+
+        function recordAttempt() {
+            verificationAttempts++;
+            attemptCache.set({ count: verificationAttempts, timestamp: Date.now() });
+        }
+
+        function generateVerificationCode() {
+            if (isRateLimited || checkRateLimit()) return;
+            
+            recordAttempt();
+            
+            // Generar código de 8 caracteres (sin 0,O,1,I para evitar confusiones)
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            code = code.substring(0, 4) + '-' + code.substring(4, 8);
+            
+            currentVerificationCode = code;
+            
+            // Mostrar código
+            document.getElementById('verification-code').textContent = code;
+            document.getElementById('code-display').classList.remove('hidden');
+            document.getElementById('telegram-btn-container').classList.remove('hidden');
+            document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Generar Nuevo Código';
+            
+            // Actualizar enlace de Telegram
+            updateTelegramLink(code);
+            
+            // Iniciar temporizador (15 minutos)
+            startCodeTimer(15 * 60);
+            
+            // Si excedió intentos, aplicar rate limit
+            if (verificationAttempts >= MAX_ATTEMPTS) {
+                isRateLimited = true;
+                document.getElementById('generate-code-btn').disabled = true;
+                document.getElementById('generate-code-btn').classList.add('opacity-50', 'cursor-not-allowed');
+                document.getElementById('rate-limit-msg').classList.remove('hidden');
+                document.getElementById('rate-limit-time').textContent = RATE_LIMIT_MINUTES;
+                
+                setTimeout(() => {
+                    attemptCache.reset();
+                    verificationAttempts = 0;
+                    isRateLimited = false;
+                    document.getElementById('rate-limit-msg').classList.add('hidden');
+                    document.getElementById('generate-code-btn').disabled = false;
+                    document.getElementById('generate-code-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+                    document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación';
+                }, RATE_LIMIT_MINUTES * 60 * 1000);
+            }
+        }
+
+        function startCodeTimer(seconds) {
+            if (codeExpirationTimer) clearInterval(codeExpirationTimer);
+            
+            const timerElement = document.getElementById('code-timer');
+            let remaining = seconds;
+            
+            codeExpirationTimer = setInterval(() => {
+                remaining--;
+                const minutes = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                timerElement.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
+                
+                if (remaining <= 60) timerElement.classList.add('text-red-400');
+                if (remaining <= 0) {
+                    clearInterval(codeExpirationTimer);
+                    currentVerificationCode = null;
+                    document.getElementById('code-display').classList.add('hidden');
+                    document.getElementById('telegram-btn-container').classList.add('hidden');
+                    document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación';
+                    timerElement.classList.remove('text-red-400');
+                }
+            }, 1000);
+        }
+
+        function updateTelegramLink(code) {
+            const planName = document.getElementById('selected-plan-name').textContent;
+            const msg = `Hi Blaster! I want the *${planName}* plan. My verification code is: *${code}*. Here is my proof for the key:`;
+            document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodeURIComponent(msg)}`;
+        }
+
+        function copyVerificationCode() {
+            if (!currentVerificationCode) return;
+            navigator.clipboard.writeText(currentVerificationCode).then(() => {
+                const codeElement = document.getElementById('verification-code');
+                codeElement.classList.add('text-amber-500');
+                setTimeout(() => codeElement.classList.remove('text-amber-500'), 500);
+                alert("✅ Código copiado: " + currentVerificationCode);
+            });
+        }
+
+        function resetVerification() {
+            currentVerificationCode = null;
+            if (codeExpirationTimer) clearInterval(codeExpirationTimer);
+            document.getElementById('code-display').classList.add('hidden');
+            document.getElementById('telegram-btn-container').classList.add('hidden');
+            document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación';
+            document.getElementById('telegram-verify-link').href = '#';
+        }
 
         // ===== LICENSE CHECKER =====
         async function checkLicenseWeb(){
