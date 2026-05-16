@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blaster Bot PRO - International Smart Automation</title>
-    <meta property="og:image" content="https://github.com/jassonjed-png/blaterbot
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Blaster Bot PRO - Smart Automation | 3-Day Trial & Android Coming Soon</title>
+    <meta property="og:image" content="https://github.com/jassonjed-png/blaterbot">
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -166,7 +166,6 @@
         .hamburger-btn { display: none; position: fixed; top: 10px; left: 10px; z-index: 60; width: 38px; height: 38px; background: rgba(0,0,0,0.8); border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; color: #f59e0b; font-size: 1.1rem; cursor: pointer; }
         .toast-notification { position: fixed; bottom: 30px; left: 240px; z-index: 9999; max-width: 300px; }
 
-        /* BADGE ONLINE */
         .online-dot {
             width: 8px;
             height: 8px;
@@ -177,7 +176,6 @@
             box-shadow: 0 0 8px #22c55e;
         }
 
-        /* CAMPAÑA DE NOTIFICACIONES */
         .notification-badge { position: relative; }
         .notification-count {
             position: absolute;
@@ -195,7 +193,6 @@
             justify-content: center;
         }
 
-        /* VISITORS COUNTER */
         .visitors-pulse {
             width: 8px;
             height: 8px;
@@ -365,9 +362,41 @@
                     </div>
                 </div>
             </div>
+
+            <!-- === NUEVA SECCIÓN: TRIAL 3 DÍAS + ANDROID COMING SOON === -->
+            <div class="py-10 px-6">
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 3-Day Trial Card -->
+                        <div class="card-glass p-6 rounded-2xl text-center border-2 border-amber-500/30 hover:border-amber-500/60 transition-all" data-tilt data-tilt-max="8">
+                            <div class="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-flask text-3xl text-amber-500"></i>
+                            </div>
+                            <h3 class="text-xl font-black mb-2 gold-text">3-Day Free Trial</h3>
+                            <p class="text-gray-400 text-sm mb-4">Test full power of Blaster Bot PRO for 3 days. No credit card, no commitment.</p>
+                            <a href="#" id="trial-download-main" target="_blank" class="inline-block gold-gradient text-black font-black py-3 px-6 rounded-xl hover:scale-105 transition-transform shadow-lg uppercase text-sm">
+                                <i class="fas fa-download mr-2"></i> Download Trial (.exe)
+                            </a>
+                            <p class="text-[10px] text-gray-500 mt-3">✔️ Fully functional ✔️ After 3 days, purchase any plan to continue</p>
+                        </div>
+                        <!-- Android Coming Soon Card -->
+                        <div class="card-glass p-6 rounded-2xl text-center border-2 border-emerald-500/30 hover:border-emerald-500/60 transition-all" data-tilt data-tilt-max="8">
+                            <div class="w-14 h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fa-brands fa-android text-3xl text-emerald-500"></i>
+                            </div>
+                            <h3 class="text-xl font-black mb-2 text-emerald-400">Android App</h3>
+                            <p class="text-gray-400 text-sm mb-4">Automate on the go. Native Android client with full sync.</p>
+                            <div class="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-black py-2 px-5 rounded-xl uppercase text-xs tracking-wider">
+                                <i class="fas fa-clock mr-1"></i> Coming Soon
+                            </div>
+                            <p class="text-[10px] text-gray-500 mt-3">🚀 Early access for PRO users | Q3 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- ===== TAB: FEATURES ===== -->
+        <!-- ===== TAB: FEATURES ===== (sin cambios) ===== -->
         <div id="tab-features" class="tab-content">
             <section class="py-12 px-6">
                 <div class="max-w-5xl mx-auto">
@@ -384,7 +413,7 @@
             </section>
         </div>
 
-        <!-- ===== TAB: GALLERY ===== -->
+        <!-- ===== TAB: GALLERY ===== (sin cambios) ===== -->
         <div id="tab-gallery" class="tab-content">
             <section class="py-12 px-6">
                 <div class="max-w-4xl mx-auto">
@@ -405,13 +434,11 @@
             </section>
         </div>
 
-        <!-- ===== TAB: UPDATES (CON FILTROS) ===== -->
+        <!-- ===== TAB: UPDATES (con filtros, sin cambios) ===== -->
         <div id="tab-updates" class="tab-content">
             <section class="py-12 px-6">
                 <div class="max-w-2xl mx-auto">
                     <div class="text-center mb-8"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Changelog</h2><p class="text-gray-400 text-sm">Filter by version type</p></div>
-                    
-                    <!-- Filtros -->
                     <div class="flex justify-center gap-2 mb-6 flex-wrap">
                         <button onclick="filterUpdates('all')" class="filter-btn active px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-amber-500/20 text-amber-500 border border-amber-500/30">All</button>
                         <button onclick="filterUpdates('new')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-green-500/50">New</button>
@@ -419,63 +446,26 @@
                         <button onclick="filterUpdates('initial')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-gray-500/50">Initial</button>
                         <button onclick="filterUpdates('upcoming')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold uppercase bg-slate-800 text-gray-400 border border-slate-700 hover:border-amber-500/50">Upcoming</button>
                     </div>
-
                     <div class="space-y-4">
-                        <!-- v5.0 - NEW (Anti-Spam) -->
                         <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-green-500" data-type="new">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">NEW</span>
-                                <span class="text-xs text-amber-500 font-bold">Junio 2026 - v5.0</span>
-                            </div>
+                            <div class="flex items-center gap-2 mb-1"><span class="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-bold">NEW</span><span class="text-xs text-amber-500 font-bold">Junio 2026 - v5.0</span></div>
                             <h3 class="font-bold mb-2">🛡️ Anti-Spam Payment Shield</h3>
-                            <ul class="text-gray-400 text-xs space-y-1">
-                                <li>• Sistema de verificación anti‑spam para envío de pruebas de pago</li>
-                                <li>• Código de verificación único con expiración de 15 minutos</li>
-                                <li>• Rate limiting: máximo 3 intentos cada 30 minutos</li>
-                                <li>• Rediseño completo del checkout para máxima seguridad</li>
-                                <li>• Mejoras de rendimiento y corrección de errores menores</li>
-                            </ul>
+                            <ul class="text-gray-400 text-xs space-y-1"><li>• Sistema de verificación anti‑spam para envío de pruebas de pago</li><li>• Código de verificación único con expiración de 15 minutos</li><li>• Rate limiting: máximo 3 intentos cada 30 minutos</li><li>• Rediseño completo del checkout para máxima seguridad</li><li>• Mejoras de rendimiento y corrección de errores menores</li></ul>
                         </div>
-
-                        <!-- v4.0 - MAJOR (se cambió de NEW a MAJOR) -->
                         <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-blue-500" data-type="major">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span>
-                                <span class="text-xs text-amber-500 font-bold">Mayo 2026 - v4.0</span>
-                            </div>
+                            <div class="flex items-center gap-2 mb-1"><span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span><span class="text-xs text-amber-500 font-bold">Mayo 2026 - v4.0</span></div>
                             <h3 class="font-bold mb-2">🆕 Major Interface Redesign</h3>
-                            <ul class="text-gray-400 text-xs space-y-1">
-                                <li>• Interfaz completamente rediseñada con sidebar</li>
-                                <li>• Nuevo sistema de galería interactiva con lightbox</li>
-                                <li>• Estadísticas en tiempo real mejoradas</li>
-                                <li>• Corrección de errores y optimización de rendimiento</li>
-                            </ul>
+                            <ul class="text-gray-400 text-xs space-y-1"><li>• Interfaz completamente rediseñada con sidebar</li><li>• Nuevo sistema de galería interactiva con lightbox</li><li>• Estadísticas en tiempo real mejoradas</li><li>• Corrección de errores y optimización de rendimiento</li></ul>
                         </div>
-                        
                         <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-blue-500" data-type="major"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">MAJOR</span><span class="text-xs text-amber-500 font-bold">Abril 2026 - v3.0</span></div><h3 class="font-bold mb-2">🚀 Anti-Ban System 3.0</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Sistema Anti-Ban con IA mejorada y machine learning</li><li>• Panel de estadísticas y analíticas en tiempo real</li><li>• Soporte para 50+ idiomas con detección automática</li><li>• Sistema de licencias HWID vinculante</li></ul></div>
-                        
                         <div class="update-item card-glass p-4 rounded-2xl border-l-4 border-gray-500" data-type="initial"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-slate-700 text-gray-400 px-2 py-0.5 rounded-full font-bold">INITIAL</span><span class="text-xs text-gray-500 font-bold">Marzo 2026 - v2.0</span></div><h3 class="font-bold mb-2">🔧 Official Launch</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Lanzamiento oficial de Blaster Bot PRO</li><li>• Automatización básica de mensajes multicanal</li><li>• Sistema de verificación de licencias integrado</li></ul></div>
-                        
-                        <!-- v6.0 - UPCOMING -->
-                        <div class="update-item card-glass p-4 rounded-2xl border-dashed border-amber-500/30 border-l-4" data-type="upcoming">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full font-bold">PRÓXIMO</span>
-                                <span class="text-xs text-amber-500 font-bold">????? 2026 - v6.0</span>
-                            </div>
-                            <h3 class="font-bold mb-2">🔮 Multi-Platform Automation</h3>
-                            <ul class="text-gray-400 text-xs space-y-1">
-                                <li>• Integración con Instagram (mensajes directos y auto‑respuesta)</li>
-                                <li>• Soporte inicial para WhatsApp Business API</li>
-                                <li>• Dashboard unificado para múltiples plataformas</li>
-                                <li>• Gestión avanzada de plantillas multimedia</li>
-                            </ul>
-                        </div>
+                        <div class="update-item card-glass p-4 rounded-2xl border-dashed border-amber-500/30 border-l-4" data-type="upcoming"><div class="flex items-center gap-2 mb-1"><span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full font-bold">PRÓXIMO</span><span class="text-xs text-amber-500 font-bold">????? 2026 - v6.0</span></div><h3 class="font-bold mb-2">🔮 Multi-Platform Automation</h3><ul class="text-gray-400 text-xs space-y-1"><li>• Integración con Instagram (mensajes directos y auto‑respuesta)</li><li>• Soporte inicial para WhatsApp Business API</li><li>• Dashboard unificado para múltiples plataformas</li><li>• Gestión avanzada de plantillas multimedia</li></ul></div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- ===== TAB: COMPARE ===== -->
+        <!-- ===== TAB: COMPARE (sin cambios) ===== -->
         <div id="tab-compare" class="tab-content">
             <section class="py-12 px-6">
                 <div class="max-w-4xl mx-auto">
@@ -497,11 +487,20 @@
             </section>
         </div>
 
-        <!-- ===== TAB: PRICING ===== -->
+        <!-- ===== TAB: PRICING (con trial banner añadido) ===== -->
         <div id="tab-pricing" class="tab-content">
             <section class="py-12 px-6">
                 <div class="max-w-5xl mx-auto">
                     <div class="text-center mb-8"><h2 class="text-3xl font-black mb-2 gold-text uppercase">Choose Your Plan</h2><p class="text-gray-400 text-sm">Scale your business with the right plan</p></div>
+                    
+                    <!-- Nuevo banner de prueba gratuita dentro de pricing -->
+                    <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3 mb-6 text-center backdrop-blur-sm">
+                        <i class="fas fa-gem text-amber-500 mr-2"></i>
+                        <span class="text-sm font-bold">Not sure yet?</span>
+                        <a href="#" id="trial-from-pricing" class="text-amber-500 underline font-bold mx-1 hover:text-amber-400">Download 3-day trial</a>
+                        <span class="text-xs text-gray-400 ml-2">🚀 Fully functional Windows app, no payment required.</span>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
                         <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '19.99', 'Monthly', 'https://nowpayments.io/payment/?iid=5178766239')" data-tilt data-tilt-max="8"><h3 class="font-bold text-xs mb-1">Monthly</h3><div class="text-lg font-black mb-2">$19.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
                         <div class="plan-card card-glass p-3 rounded-2xl cursor-pointer flex flex-col justify-between" onclick="selectPlan(this, '34.99', 'Quarterly', 'https://nowpayments.io/payment/?iid=4836685273')" data-tilt data-tilt-max="8"><h3 class="font-bold text-xs mb-1">Quarterly</h3><div class="text-lg font-black mb-2">$34.99</div><div class="w-full py-1.5 bg-slate-800 rounded-lg text-center text-[9px] font-black uppercase">Select</div></div>
@@ -512,7 +511,6 @@
 
                     <div id="checkout" class="max-w-3xl mx-auto p-5 card-glass rounded-3xl border-2 border-slate-800 shadow-2xl relative">
                         <div id="empty-state" class="text-center py-6"><div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fas fa-mouse-pointer text-base text-slate-600"></i></div><p class="text-slate-500 font-black uppercase tracking-[0.3em] text-xs">Choose a plan to reveal payment methods</p></div>
-                        
                         <div id="payment-selection" class="hidden animate-fade-in">
                             <div class="text-center mb-5"><h4 class="text-sm font-bold uppercase">Selected Plan: <span id="selected-plan-name" class="gold-text">---</span></h4></div>
                             <div class="flex gap-2 justify-center mb-5">
@@ -528,54 +526,14 @@
                                     <button onclick="window.open('https://switchere.com/exchange/buy-tether-trc20','_blank')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl uppercase text-xs"><i class="fa-solid fa-credit-card mr-2"></i> Buy with Card</button>
                                 </div>
                             </div>
-                            
-                            <!-- ===== NUEVO SISTEMA DE VERIFICACIÓN ANTI-SPAM ===== -->
                             <div id="verification-section" class="text-center pt-4 border-t border-white/5">
                                 <p class="text-gray-500 text-[8px] uppercase font-bold mb-3 tracking-widest">Confirmation required (anti-spam):</p>
-                                
-                                <!-- Paso 1: Generar código -->
                                 <div id="verification-step" class="space-y-3">
-                                    <p class="text-[10px] text-gray-400">Para evitar spam, genera un código de verificación único:</p>
-                                    <button id="generate-code-btn" onclick="generateVerificationCode()" 
-                                            class="inline-block px-6 bg-amber-500/20 text-amber-500 border border-amber-500/30 py-2.5 rounded-2xl font-black text-xs hover:bg-amber-500/30 transition-all uppercase tracking-tighter">
-                                        <i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación
-                                    </button>
-                                    
-                                    <!-- Código generado -->
-                                    <div id="code-display" class="hidden animate-fade-in-up">
-                                        <div class="bg-black/50 p-3 rounded-2xl border border-green-500/30 inline-block">
-                                            <p class="text-[9px] text-gray-400 uppercase mb-1">Tu código de verificación:</p>
-                                            <div class="flex items-center gap-2 justify-center">
-                                                <code id="verification-code" class="text-green-400 font-mono text-xl font-bold tracking-[0.3em]"></code>
-                                                <button onclick="copyVerificationCode()" class="bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
-                                                    <i class="fa-solid fa-copy text-gray-400 hover:text-amber-500"></i>
-                                                </button>
-                                            </div>
-                                            <p class="text-[9px] text-red-400 mt-2 flex items-center justify-center gap-1">
-                                                <i class="fas fa-clock"></i> 
-                                                <span>Expira en: </span>
-                                                <span id="code-timer" class="font-bold">15:00</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Botón de Telegram (solo visible con código válido) -->
-                                    <div id="telegram-btn-container" class="hidden animate-fade-in-up mt-3">
-                                        <p class="text-[10px] text-green-400 mb-2">✅ Código verificado. Ahora puedes enviar tu comprobante:</p>
-                                        <a id="telegram-verify-link" href="#" target="_blank" 
-                                           class="inline-block px-10 bg-[#229ED9] text-white py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform shadow-lg uppercase tracking-tighter">
-                                            <i class="fa-brands fa-telegram mr-1"></i> Send Proof
-                                        </a>
-                                        <p class="text-[8px] text-gray-500 mt-1">Incluye el código generado en tu mensaje</p>
-                                    </div>
-                                    
-                                    <!-- Rate limit -->
-                                    <div id="rate-limit-msg" class="hidden animate-fade-in-up">
-                                        <p class="text-red-400 text-xs font-bold">
-                                            <i class="fas fa-exclamation-triangle mr-1"></i> 
-                                            Has excedido el límite de intentos. Espera <span id="rate-limit-time">30</span> minutos.
-                                        </p>
-                                    </div>
+                                    <p class="text-[10px] text-gray-400">To prevent spam, generate a unique verification code:</p>
+                                    <button id="generate-code-btn" onclick="generateVerificationCode()" class="inline-block px-6 bg-amber-500/20 text-amber-500 border border-amber-500/30 py-2.5 rounded-2xl font-black text-xs hover:bg-amber-500/30 transition-all uppercase tracking-tighter"><i class="fas fa-shield-haltered mr-1"></i> Generate Code</button>
+                                    <div id="code-display" class="hidden animate-fade-in-up"><div class="bg-black/50 p-3 rounded-2xl border border-green-500/30 inline-block"><p class="text-[9px] text-gray-400 uppercase mb-1">Your code:</p><div class="flex items-center gap-2 justify-center"><code id="verification-code" class="text-green-400 font-mono text-xl font-bold tracking-[0.3em]"></code><button onclick="copyVerificationCode()" class="bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition"><i class="fa-solid fa-copy text-gray-400 hover:text-amber-500"></i></button></div><p class="text-[9px] text-red-400 mt-2"><i class="fas fa-clock"></i> Expires: <span id="code-timer" class="font-bold">15:00</span></p></div></div>
+                                    <div id="telegram-btn-container" class="hidden animate-fade-in-up mt-3"><p class="text-[10px] text-green-400 mb-2">✅ Code verified. Send your proof:</p><a id="telegram-verify-link" href="#" target="_blank" class="inline-block px-10 bg-[#229ED9] text-white py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform shadow-lg uppercase tracking-tighter"><i class="fa-brands fa-telegram mr-1"></i> Send Proof</a><p class="text-[8px] text-gray-500 mt-1">Include the code in your message</p></div>
+                                    <div id="rate-limit-msg" class="hidden animate-fade-in-up"><p class="text-red-400 text-xs font-bold"><i class="fas fa-exclamation-triangle mr-1"></i> Rate limit exceeded. Wait <span id="rate-limit-time">30</span> minutes.</p></div>
                                 </div>
                             </div>
                         </div>
@@ -584,7 +542,7 @@
             </section>
         </div>
 
-        <!-- ===== TAB: VALIDATOR ===== -->
+        <!-- ===== TAB: VALIDATOR (sin cambios) ===== -->
         <div id="tab-validator" class="tab-content">
             <section class="py-12 px-6">
                 <div class="max-w-lg mx-auto">
@@ -614,99 +572,55 @@
     <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 z-50 w-10 h-10 gold-gradient text-black rounded-full shadow-lg flex items-center justify-center text-lg font-bold"><i class="fas fa-arrow-up"></i></button>
     <a href="https://t.me/spbot247" target="_blank" class="fixed bottom-20 right-6 z-50 w-10 h-10 bg-[#229ED9] text-white rounded-full shadow-lg flex items-center justify-center text-lg hover:scale-110 transition-transform"><i class="fa-brands fa-telegram"></i></a>
 
-    <!-- Toast notificación -->
     <div id="sale-toast" class="toast-notification hidden"><div class="card-glass p-3 rounded-2xl border border-green-500/30 flex items-center gap-2"><span class="text-base">🔔</span><div class="flex-1"><p id="sale-toast-text" class="text-xs text-gray-300"></p><p class="text-[8px] text-green-400 mt-0.5">Hace unos segundos</p></div><button onclick="document.getElementById('sale-toast').classList.add('hidden')" class="text-gray-500 hover:text-white text-sm"><i class="fas fa-times"></i></button></div></div>
 
     <script>
+        // === CONFIG: URL DE DESCARGA DE TRIAL (Windows .exe, 3 días) ===
+        // Reemplazar con el enlace real de tu instalador trial
+        const TRIAL_DOWNLOAD_URL = "https://drive.google.com/file/d/15tZil72V5eQleifSoASuH4DiQU82Ltxq/view?usp=sharing"; // <--- CAMBIA ESTO por tu link real del trial .exe
+        // Asignar a ambos botones trial
+        document.getElementById('trial-download-main')?.setAttribute('href', TRIAL_DOWNLOAD_URL);
+        document.getElementById('trial-from-pricing')?.setAttribute('href', TRIAL_DOWNLOAD_URL);
+
         // ===== PRELOADER =====
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-            }, 800);
+            setTimeout(() => { document.getElementById('preloader').classList.add('hidden'); }, 800);
         });
 
         // ===== LIGHTBOX =====
-        function openLightbox(src) {
-            const lb = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
-            lb.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        function openLightbox(src) { const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img'); img.src = src; lb.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
         // ===== MATRIX =====
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById('matrix-bg'); const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%#&_";
-        const fontSize = 14; const columns = canvas.width / fontSize;
-        const drops = []; for (let x = 0; x < columns; x++) drops[x] = 1;
+        const fontSize = 14; const columns = canvas.width / fontSize; const drops = []; for (let x = 0; x < columns; x++) drops[x] = 1;
         function drawMatrix() { ctx.fillStyle = "rgba(0,0,0,0.05)"; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "#f59e0b"; ctx.font = fontSize+"px monospace"; for (let i=0; i<drops.length; i++) { const text = letters.charAt(Math.floor(Math.random()*letters.length)); ctx.fillText(text,i*fontSize,drops[i]*fontSize); if (drops[i]*fontSize>canvas.height&&Math.random()>0.975) drops[i]=0; drops[i]++; } }
         setInterval(drawMatrix,33);
         window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 
-        // ===== SIDEBAR =====
+        // ===== SIDEBAR & TABS (unchanged) =====
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('mobile-open'); document.getElementById('sidebar-overlay').classList.toggle('hidden'); }
         function closeSidebar() { document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('sidebar-overlay').classList.add('hidden'); }
-
-        // ===== PESTAÑAS =====
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
             document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b=>b.classList.remove('active'));
-            const tab = document.getElementById('tab-'+tabName);
-            if (tab) tab.classList.add('active');
-            const btn = document.querySelector(`.sidebar-btn[data-tab="${tabName}"]`);
-            if (btn) btn.classList.add('active');
-            window.scrollTo({top:0,behavior:'smooth'});
-            if (window.innerWidth<768) closeSidebar();
+            const tab = document.getElementById('tab-'+tabName); if (tab) tab.classList.add('active');
+            const btn = document.querySelector(`.sidebar-btn[data-tab="${tabName}"]`); if (btn) btn.classList.add('active');
+            window.scrollTo({top:0,behavior:'smooth'}); if (window.innerWidth<768) closeSidebar();
             if (tabName==='gallery') initSwiper();
             if (tabName==='updates') { document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); document.querySelector('.filter-btn').classList.add('active'); filterUpdates('all'); }
         }
+        let swiper; function initSwiper() { if(swiper) swiper.destroy(); setTimeout(()=>{ swiper=new Swiper('.gallerySwiper',{slidesPerView:1,spaceBetween:15,loop:true,autoplay:{delay:3000,disableOnInteraction:false},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},breakpoints:{768:{slidesPerView:2}}}); },100); }
+        function filterUpdates(type) { const ev = window.event; ev?.target?.classList?.add('active'); document.querySelectorAll('.update-item').forEach(item => { if (type === 'all' || item.getAttribute('data-type') === type) { item.style.display = 'block'; item.classList.add('animate-fade-in'); } else { item.style.display = 'none'; } }); }
 
-        // ===== SWIPER =====
-        let swiper;
-        function initSwiper() { if(swiper) swiper.destroy(); setTimeout(()=>{ swiper=new Swiper('.gallerySwiper',{slidesPerView:1,spaceBetween:15,loop:true,autoplay:{delay:3000,disableOnInteraction:false},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},breakpoints:{768:{slidesPerView:2}}}); },100); }
-
-        // ===== FILTRO DE UPDATES =====
-        function filterUpdates(type) {
-            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.update-item').forEach(item => {
-                if (type === 'all' || item.getAttribute('data-type') === type) {
-                    item.style.display = 'block';
-                    item.classList.add('animate-fade-in');
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // ===== TILT 3D =====
-        document.addEventListener('DOMContentLoaded', () => {
-            VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
-                max: 10,
-                speed: 400,
-                glare: true,
-                'max-glare': 0.2,
-            });
-        });
-        function reinitTilt() {
-            VanillaTilt.init(document.querySelectorAll('[data-tilt]:not([data-tilt-initialized])'), {
-                max: 10, speed: 400, glare: true, 'max-glare': 0.2,
-            });
-        }
-        const tiltObserver = new MutationObserver(() => reinitTilt());
-        tiltObserver.observe(document.body, { childList: true, subtree: true });
-
-        // ===== BACK TO TOP =====
+        // ===== TILT =====
+        document.addEventListener('DOMContentLoaded', () => { VanillaTilt.init(document.querySelectorAll('[data-tilt]'), { max: 10, speed: 400, glare: true, 'max-glare': 0.2 }); });
+        function reinitTilt() { VanillaTilt.init(document.querySelectorAll('[data-tilt]:not([data-tilt-initialized])'), { max: 10, speed: 400, glare: true, 'max-glare': 0.2 }); }
+        const tiltObserver = new MutationObserver(() => reinitTilt()); tiltObserver.observe(document.body, { childList: true, subtree: true });
         window.addEventListener('scroll',()=>{const b=document.getElementById('back-to-top');b.classList.toggle('show',window.scrollY>400);});
-
-        // ===== THEME =====
         function toggleTheme() { document.body.classList.toggle('light-mode'); const i=document.querySelector('#theme-label'); i.textContent=document.body.classList.contains('light-mode')?'Dark Mode':'Light Mode'; }
 
         // ===== COUNTDOWN =====
@@ -716,201 +630,28 @@
         const buyers=[{name:'Carlos M.',plan:'Plan Lifetime',country:'México'},{name:'Andrea R.',plan:'Plan Semi-Annual',country:'España'},{name:'Miguel D.',plan:'Plan Annual',country:'Colombia'},{name:'Sofía L.',plan:'Plan Lifetime',country:'Argentina'},{name:'Diego P.',plan:'Plan Quarterly',country:'Chile'}];
         function showSaleNotification(){const b=buyers[Math.floor(Math.random()*buyers.length)];const t=document.getElementById('sale-toast'),x=document.getElementById('sale-toast-text');if(!t||!x)return;x.textContent=`${b.name} compró ${b.plan} (${b.country})`;t.classList.remove('hidden');t.classList.add('animate-slide-in');t.classList.remove('animate-slide-out');setTimeout(()=>{t.classList.add('animate-slide-out');t.classList.remove('animate-slide-in');setTimeout(()=>t.classList.add('hidden'),400);},4000);}
         setTimeout(()=>showSaleNotification(),10000);setInterval(()=>{setTimeout(()=>showSaleNotification(),Math.random()*30000+30000);},60000);
-
-        // ===== CONTADOR DE VISITANTES =====
-        function updateVisitorCount() {
-            const count = Math.floor(Math.random() * 30) + 5;
-            document.getElementById('visitor-count').textContent = count;
-        }
-        updateVisitorCount();
-        setInterval(updateVisitorCount, 15000);
-
-        // ===== STATS ANIMADOS =====
+        function updateVisitorCount() { document.getElementById('visitor-count').textContent = Math.floor(Math.random() * 30) + 5; }
+        updateVisitorCount(); setInterval(updateVisitorCount, 15000);
         function animateStats(){const s=document.querySelectorAll('.stat-number[data-target]');const o=new IntersectionObserver((e)=>{e.forEach(e=>{if(e.isIntersecting){const t=parseInt(e.target.getAttribute('data-target'));let c=0;const i=t/50;const r=setInterval(()=>{c+=i;if(c>=t){e.target.textContent=t.toLocaleString();clearInterval(r);}else{e.target.textContent=Math.floor(c).toLocaleString();}},40);o.unobserve(e.target);}});},{threshold:0.5});s.forEach(s=>o.observe(s));}
         animateStats();
-
-        // ===== TURNSTILE =====
         function enableVerifyBtn(){const b=document.getElementById('verify-btn');b.disabled=false;b.classList.remove('bg-slate-700','text-gray-400','cursor-not-allowed');b.classList.add('gold-gradient','text-black','cursor-pointer');}
-
-        // ===== PAGOS (MODIFICADO - YA NO GENERA LINK AUTOMÁTICO) =====
         let currentNowPaymentsLink="";
-        function selectPlan(e,p,n,l){
-            document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('card-selected'));
-            e.classList.add('card-selected');
-            document.getElementById('empty-state').classList.add('hidden');
-            document.getElementById('payment-selection').classList.remove('hidden');
-            document.getElementById('selected-plan-name').innerText=n;
-            currentNowPaymentsLink=l;
-            // YA NO generamos el enlace automáticamente - el usuario debe generar un código primero
-            resetVerification();
-            document.getElementById('checkout').scrollIntoView({behavior:'smooth',block:'center'});
-        }
-        function payWithNowPayments(){if(currentNowPaymentsLink)window.open(currentNowPaymentsLink,'_blank');else alert("Por favor selecciona un plan primero.");}
+        function selectPlan(e,p,n,l){ document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('card-selected')); e.classList.add('card-selected'); document.getElementById('empty-state').classList.add('hidden'); document.getElementById('payment-selection').classList.remove('hidden'); document.getElementById('selected-plan-name').innerText=n; currentNowPaymentsLink=l; resetVerification(); document.getElementById('checkout').scrollIntoView({behavior:'smooth',block:'center'}); }
+        function payWithNowPayments(){if(currentNowPaymentsLink)window.open(currentNowPaymentsLink,'_blank');else alert("Please select a plan first.");}
         function toggleMethod(m){['binance','global'].forEach(m=>{document.getElementById(`block-${m}`).classList.add('hidden');document.getElementById(`btn-${m}`).classList.remove('method-active');});document.getElementById(`block-${m}`).classList.remove('hidden');document.getElementById(`btn-${m}`).classList.add('method-active');}
-
-        // ===== NUEVO SISTEMA ANTI-SPAM =====
-        let currentVerificationCode = null;
-        let codeExpirationTimer = null;
-        let verificationAttempts = 0;
-        let isRateLimited = false;
-        const MAX_ATTEMPTS = 3;
-        const RATE_LIMIT_MINUTES = 30;
-
-        // Gestión de intentos con localStorage
-        const attemptCache = {
-            get: () => {
-                try { return JSON.parse(localStorage.getItem('blaster_attempts') || '{"count":0,"timestamp":0}'); }
-                catch(e) { return {count:0, timestamp:0}; }
-            },
-            set: (data) => { localStorage.setItem('blaster_attempts', JSON.stringify(data)); },
-            reset: () => { localStorage.setItem('blaster_attempts', JSON.stringify({count:0, timestamp:0})); }
-        };
-
-        function checkRateLimit() {
-            const cache = attemptCache.get();
-            const now = Date.now();
-            const resetTime = RATE_LIMIT_MINUTES * 60 * 1000;
-            
-            if (now - cache.timestamp > resetTime) {
-                attemptCache.reset();
-                verificationAttempts = 0;
-                isRateLimited = false;
-                document.getElementById('rate-limit-msg').classList.add('hidden');
-                document.getElementById('generate-code-btn').disabled = false;
-                document.getElementById('generate-code-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-                return false;
-            }
-            
-            if (cache.count >= MAX_ATTEMPTS) {
-                isRateLimited = true;
-                const remainingMs = resetTime - (now - cache.timestamp);
-                const remainingMin = Math.ceil(remainingMs / 60000);
-                document.getElementById('rate-limit-time').textContent = remainingMin;
-                document.getElementById('rate-limit-msg').classList.remove('hidden');
-                document.getElementById('generate-code-btn').disabled = true;
-                document.getElementById('generate-code-btn').classList.add('opacity-50', 'cursor-not-allowed');
-                return true;
-            }
-            
-            verificationAttempts = cache.count;
-            return false;
-        }
-
-        function recordAttempt() {
-            verificationAttempts++;
-            attemptCache.set({ count: verificationAttempts, timestamp: Date.now() });
-        }
-
-        function generateVerificationCode() {
-            if (isRateLimited || checkRateLimit()) return;
-            
-            recordAttempt();
-            
-            // Generar código de 8 caracteres (sin 0,O,1,I para evitar confusiones)
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let code = '';
-            for (let i = 0; i < 8; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            code = code.substring(0, 4) + '-' + code.substring(4, 8);
-            
-            currentVerificationCode = code;
-            
-            // Mostrar código
-            document.getElementById('verification-code').textContent = code;
-            document.getElementById('code-display').classList.remove('hidden');
-            document.getElementById('telegram-btn-container').classList.remove('hidden');
-            document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Generar Nuevo Código';
-            
-            // Actualizar enlace de Telegram
-            updateTelegramLink(code);
-            
-            // Iniciar temporizador (15 minutos)
-            startCodeTimer(15 * 60);
-            
-            // Si excedió intentos, aplicar rate limit
-            if (verificationAttempts >= MAX_ATTEMPTS) {
-                isRateLimited = true;
-                document.getElementById('generate-code-btn').disabled = true;
-                document.getElementById('generate-code-btn').classList.add('opacity-50', 'cursor-not-allowed');
-                document.getElementById('rate-limit-msg').classList.remove('hidden');
-                document.getElementById('rate-limit-time').textContent = RATE_LIMIT_MINUTES;
-                
-                setTimeout(() => {
-                    attemptCache.reset();
-                    verificationAttempts = 0;
-                    isRateLimited = false;
-                    document.getElementById('rate-limit-msg').classList.add('hidden');
-                    document.getElementById('generate-code-btn').disabled = false;
-                    document.getElementById('generate-code-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-                    document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación';
-                }, RATE_LIMIT_MINUTES * 60 * 1000);
-            }
-        }
-
-        function startCodeTimer(seconds) {
-            if (codeExpirationTimer) clearInterval(codeExpirationTimer);
-            
-            const timerElement = document.getElementById('code-timer');
-            let remaining = seconds;
-            
-            codeExpirationTimer = setInterval(() => {
-                remaining--;
-                const minutes = Math.floor(remaining / 60);
-                const secs = remaining % 60;
-                timerElement.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
-                
-                if (remaining <= 60) timerElement.classList.add('text-red-400');
-                if (remaining <= 0) {
-                    clearInterval(codeExpirationTimer);
-                    currentVerificationCode = null;
-                    document.getElementById('code-display').classList.add('hidden');
-                    document.getElementById('telegram-btn-container').classList.add('hidden');
-                    document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación';
-                    timerElement.classList.remove('text-red-400');
-                }
-            }, 1000);
-        }
-
-        function updateTelegramLink(code) {
-            const planName = document.getElementById('selected-plan-name').textContent;
-            const msg = `Hi Blaster! I want the *${planName}* plan. My verification code is: *${code}*. Here is my proof for the key:`;
-            document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodeURIComponent(msg)}`;
-        }
-
-        function copyVerificationCode() {
-            if (!currentVerificationCode) return;
-            navigator.clipboard.writeText(currentVerificationCode).then(() => {
-                const codeElement = document.getElementById('verification-code');
-                codeElement.classList.add('text-amber-500');
-                setTimeout(() => codeElement.classList.remove('text-amber-500'), 500);
-                alert("✅ Código copiado: " + currentVerificationCode);
-            });
-        }
-
-        function resetVerification() {
-            currentVerificationCode = null;
-            if (codeExpirationTimer) clearInterval(codeExpirationTimer);
-            document.getElementById('code-display').classList.add('hidden');
-            document.getElementById('telegram-btn-container').classList.add('hidden');
-            document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generar Código de Verificación';
-            document.getElementById('telegram-verify-link').href = '#';
-        }
-
-        // ===== LICENSE CHECKER =====
-        async function checkLicenseWeb(){
-            const k=document.getElementById('web-key-input').value.trim().toLowerCase();
-            const r=document.getElementById('license-result'),s=document.getElementById('result-status'),i=document.getElementById('result-icon');
-            if(!k)return;r.classList.remove('hidden');s.innerText="VERIFYING...";i.innerHTML='<i class="fas fa-circle-notch fa-spin text-amber-500"></i>';
-            const U="https://wyeivrdsoqsmrsppwokq.supabase.co",K="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZWl2cmRzb3FzbXJzcHB3b2txIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzA2NDgsImV4cCI6MjA5MjY0NjY0OH0.RXHJWnqbpGquWluikJszyqTj9RPDM3b7-VUsOWcDEoU";
-            try{
-                const R=await fetch(`${U}/rest/v1/licencias?key=eq.${k}&select=status,exp_date`,{headers:{"apikey":K,"Authorization":`Bearer ${K}`}});
-                const d=await R.json();
-                if(d&&d.length>0){const l=d[0];if(l.status.toLowerCase()==='active'){i.innerHTML='<i class="fas fa-check-circle text-green-500"></i>';s.innerText="AUTHORIZED";s.className="text-green-500 font-black text-base uppercase";document.getElementById('result-exp').innerText=`Expires: ${l.exp_date}`;document.getElementById('download-locked').classList.add('hidden');document.getElementById('download-unlocked').classList.remove('hidden');document.getElementById('secure-download-link').href="https://drive.google.com/file/d/1Qg5Bb55Yz2msxlMZGEPgmyNBMX6TVMAD/view?usp=sharing";}
-                else{i.innerHTML='<i class="fas fa-times-circle text-red-500"></i>';s.innerText="SUSPENDED";s.className="text-red-500 font-black text-base uppercase";bloquearDescarga();}}
-                else{i.innerHTML='<i class="fas fa-ban text-amber-500"></i>';s.innerText="INVALID KEY";s.className="text-amber-500 font-black text-base uppercase";bloquearDescarga();}
-            }catch(e){s.innerText="ERROR";bloquearDescarga();}
-        }
+        
+        // ===== ANTI-SPAM SYSTEM =====
+        let currentVerificationCode = null, codeExpirationTimer = null, verificationAttempts = 0, isRateLimited = false;
+        const MAX_ATTEMPTS = 3, RATE_LIMIT_MINUTES = 30;
+        const attemptCache = { get: () => { try { return JSON.parse(localStorage.getItem('blaster_attempts') || '{"count":0,"timestamp":0}'); } catch(e) { return {count:0, timestamp:0}; } }, set: (data) => { localStorage.setItem('blaster_attempts', JSON.stringify(data)); }, reset: () => { localStorage.setItem('blaster_attempts', JSON.stringify({count:0, timestamp:0})); } };
+        function checkRateLimit() { const cache = attemptCache.get(); const now = Date.now(); const resetTime = RATE_LIMIT_MINUTES * 60 * 1000; if (now - cache.timestamp > resetTime) { attemptCache.reset(); verificationAttempts = 0; isRateLimited = false; document.getElementById('rate-limit-msg').classList.add('hidden'); document.getElementById('generate-code-btn').disabled = false; document.getElementById('generate-code-btn').classList.remove('opacity-50', 'cursor-not-allowed'); return false; } if (cache.count >= MAX_ATTEMPTS) { isRateLimited = true; const remainingMin = Math.ceil((resetTime - (now - cache.timestamp)) / 60000); document.getElementById('rate-limit-time').textContent = remainingMin; document.getElementById('rate-limit-msg').classList.remove('hidden'); document.getElementById('generate-code-btn').disabled = true; document.getElementById('generate-code-btn').classList.add('opacity-50', 'cursor-not-allowed'); return true; } verificationAttempts = cache.count; return false; }
+        function recordAttempt() { verificationAttempts++; attemptCache.set({ count: verificationAttempts, timestamp: Date.now() }); }
+        function generateVerificationCode() { if (isRateLimited || checkRateLimit()) return; recordAttempt(); const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let code = ''; for (let i = 0; i < 8; i++) code += chars.charAt(Math.floor(Math.random() * chars.length)); code = code.substring(0, 4) + '-' + code.substring(4, 8); currentVerificationCode = code; document.getElementById('verification-code').textContent = code; document.getElementById('code-display').classList.remove('hidden'); document.getElementById('telegram-btn-container').classList.remove('hidden'); document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Generate New Code'; updateTelegramLink(code); startCodeTimer(15 * 60); if (verificationAttempts >= MAX_ATTEMPTS) { isRateLimited = true; document.getElementById('generate-code-btn').disabled = true; document.getElementById('generate-code-btn').classList.add('opacity-50', 'cursor-not-allowed'); document.getElementById('rate-limit-msg').classList.remove('hidden'); document.getElementById('rate-limit-time').textContent = RATE_LIMIT_MINUTES; setTimeout(() => { attemptCache.reset(); verificationAttempts = 0; isRateLimited = false; document.getElementById('rate-limit-msg').classList.add('hidden'); document.getElementById('generate-code-btn').disabled = false; document.getElementById('generate-code-btn').classList.remove('opacity-50', 'cursor-not-allowed'); document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generate Code'; }, RATE_LIMIT_MINUTES * 60 * 1000); } }
+        function startCodeTimer(seconds) { if (codeExpirationTimer) clearInterval(codeExpirationTimer); const timerElement = document.getElementById('code-timer'); let remaining = seconds; codeExpirationTimer = setInterval(() => { remaining--; const minutes = Math.floor(remaining / 60); const secs = remaining % 60; timerElement.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`; if (remaining <= 60) timerElement.classList.add('text-red-400'); if (remaining <= 0) { clearInterval(codeExpirationTimer); currentVerificationCode = null; document.getElementById('code-display').classList.add('hidden'); document.getElementById('telegram-btn-container').classList.add('hidden'); document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generate Code'; timerElement.classList.remove('text-red-400'); } }, 1000); }
+        function updateTelegramLink(code) { const planName = document.getElementById('selected-plan-name').textContent; const msg = `Hi Blaster! I want the *${planName}* plan. My verification code is: *${code}*. Here is my proof for the key:`; document.getElementById('telegram-verify-link').href = `https://t.me/spbot247?text=${encodeURIComponent(msg)}`; }
+        function copyVerificationCode() { if (!currentVerificationCode) return; navigator.clipboard.writeText(currentVerificationCode).then(() => { const codeElement = document.getElementById('verification-code'); codeElement.classList.add('text-amber-500'); setTimeout(() => codeElement.classList.remove('text-amber-500'), 500); alert("✅ Code copied: " + currentVerificationCode); }); }
+        function resetVerification() { currentVerificationCode = null; if (codeExpirationTimer) clearInterval(codeExpirationTimer); document.getElementById('code-display').classList.add('hidden'); document.getElementById('telegram-btn-container').classList.add('hidden'); document.getElementById('generate-code-btn').innerHTML = '<i class="fas fa-shield-haltered mr-1"></i> Generate Code'; document.getElementById('telegram-verify-link').href = '#'; }
+        async function checkLicenseWeb(){ const k=document.getElementById('web-key-input').value.trim().toLowerCase(); const r=document.getElementById('license-result'),s=document.getElementById('result-status'),i=document.getElementById('result-icon'); if(!k)return;r.classList.remove('hidden');s.innerText="VERIFYING...";i.innerHTML='<i class="fas fa-circle-notch fa-spin text-amber-500"></i>'; const U="https://wyeivrdsoqsmrsppwokq.supabase.co",K="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind5ZWl2cmRzb3FzbXJzcHB3b2txIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzA2NDgsImV4cCI6MjA5MjY0NjY0OH0.RXHJWnqbpGquWluikJszyqTj9RPDM3b7-VUsOWcDEoU"; try{ const R=await fetch(`${U}/rest/v1/licencias?key=eq.${k}&select=status,exp_date`,{headers:{"apikey":K,"Authorization":`Bearer ${K}`}}); const d=await R.json(); if(d&&d.length>0){const l=d[0];if(l.status.toLowerCase()==='active'){i.innerHTML='<i class="fas fa-check-circle text-green-500"></i>';s.innerText="AUTHORIZED";s.className="text-green-500 font-black text-base uppercase";document.getElementById('result-exp').innerText=`Expires: ${l.exp_date}`;document.getElementById('download-locked').classList.add('hidden');document.getElementById('download-unlocked').classList.remove('hidden');document.getElementById('secure-download-link').href="https://drive.google.com/file/d/1Qg5Bb55Yz2msxlMZGEPgmyNBMX6TVMAD/view?usp=sharing";} else{i.innerHTML='<i class="fas fa-times-circle text-red-500"></i>';s.innerText="SUSPENDED";bloquearDescarga();}} else{i.innerHTML='<i class="fas fa-ban text-amber-500"></i>';s.innerText="INVALID KEY";bloquearDescarga();}}catch(e){s.innerText="ERROR";bloquearDescarga();} }
         function bloquearDescarga(){document.getElementById('download-locked').classList.remove('hidden');document.getElementById('download-unlocked').classList.add('hidden');document.getElementById('secure-download-link').href="#";}
         function copyToClipboard(t){navigator.clipboard.writeText(t).then(()=>alert("Copied!"));}
     </script>
